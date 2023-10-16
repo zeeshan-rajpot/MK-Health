@@ -1,0 +1,6 @@
+<svg id="clock" xmlns="http://www.w3.org/2000/svg" width="18.811" height="18.811" viewBox="0 0 18.811 18.811">
+  <g id="Time_Circle" data-name="Time Circle">
+    <path id="Fill_1" data-name="Fill 1" d="M18.811,9.405A9.405,9.405,0,1,1,9.405,0a9.4,9.4,0,0,1,9.405,9.405" fill="#fab915" opacity="0.4"/>
+    <path id="Fill_4" data-name="Fill 4" d="M4.4,8.36a.711.711,0,0,1-.361-.1L.343,6.059A.709.709,0,0,1,0,5.452V.705a.705.705,0,1,1,1.411,0V5.052l3.348,2A.706.706,0,0,1,4.4,8.36" transform="translate(8.37 4.633)" fill="#fab915"/>
+  </g>
+</svg>

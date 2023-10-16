@@ -1,0 +1,17 @@
+.Labbgimg{
+    background-image: url('/horizontal-science-banner-with-glass-containers.svg') ;
+    background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensure the image covers the container */
+    background-position: center; /* Center the image */
+}
+.react-tagsinput{
+border: none !important;
+background: none !important;
+}
+.react-tagsinput-input{
+    width: 100% !important;
+}
+.react-tagsinput-tag{
+    display: none !important;
+}

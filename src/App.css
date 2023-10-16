@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;800&display=swap');
+body{
+    font-family: 'Poppins', sans-serif;
+
+}
+
+
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
+
+}
+a{
+    color: white !important;
+}
+.myButton {
+	background-color:#ffffff;
+    border: 1px solid #FAB915;
+	border-radius:34px;
+	display:inline-block;
+	cursor:pointer;
+	color:#FAB915;
+	font-family:Arial;
+	font-size:14px;
+	padding:10px 26px;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button
+{
+  -webkit-appearance: none;
+  margin: 0;
+}
+.custom-date-input::-webkit-calendar-picker-indicator {
+  background: none;
+  display: none;
+}
+
+input[type='radio']:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #ffa500;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid #ffa500;
+}
+
+
+
+input{
+  width: 100%;
+}
+
+
+.custom-checkbox {
+  display: inline-block;
+  position: relative;
+  padding-left: 10px;
+  margin-left: 10px;
+  /* margin-top: -20px; */
+  cursor: pointer;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border: 2px solid #ffffff;
+  
+  border-radius: 5px;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+  content: '';
+  position: absolute;
+  display: block;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #12AD1C;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+
+
+@media only screen and (max-width: 767px) {
+    h1{
+        font-size: 33px;
+    }
+    .mobile40vh{
+      height: 40vh !important;
+  }
+  .mobile30vh{
+    height: 30vh !important;
+}
+  .mobile60vh{
+    height: 60vh !important;
+}
+    .mobile50vh{
+        height: 50vh !important;
+    }
+    .mobile70vh{
+      height: 70vh !important;
+  }
+  .mobile80vh{
+    height: 80vh !important;
+  }
+  .mobw100{
+	width: 100% !important;
+  }
+
+  .mobw90{
+    width: 90%  !important;
+  }
+  
+.mobile-none{
+  display: none;
+}
+.mobfont12{
+font-size: 12px !important;
+}
+
+  .bg-form::after {
+display: none !important;
+}
+
+
+.bg-formm{
+  background: none;
+}
+
+  }

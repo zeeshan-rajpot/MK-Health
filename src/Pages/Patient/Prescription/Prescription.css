@@ -1,0 +1,7 @@
+.Prescriptionimg{
+    background-image: url('/doctor-writes-prescription-pil.svg') ;
+    background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    background-size: cover; /* Ensure the image covers the container */
+    background-position: center; /* Center the image */
+}

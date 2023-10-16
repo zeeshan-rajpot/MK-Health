@@ -1,0 +1,16 @@
+ .inputotp {
+    border: none;
+    border-bottom: 1px solid black;
+    margin: 0 8px; /* Adjust the margin as needed */
+    padding: 10px 5px; /* Adjust the padding as needed */
+     /* Adjust the width as needed */
+    text-align: center;
+    font-size: 20px;
+    width: 10px !important;
+
+  }
+  
+  .inputStyle input:focus {
+    outline: none;
+    border-bottom: 2px solid #007bff; /* Adjust the focus border color as needed */
+  }

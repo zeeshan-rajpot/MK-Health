@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="116" height="82" viewBox="0 0 116 82">
+  <defs>
+    <filter id="Rectangle_3654" x="0" y="0" width="116" height="82" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Component_619_1" data-name="Component 619 – 1" transform="translate(15 12)">
+    <g transform="matrix(1, 0, 0, 1, -15, -12)" filter="url(#Rectangle_3654)">
+      <rect id="Rectangle_3654-2" data-name="Rectangle 3654" width="86" height="52" rx="26" transform="translate(15 12)" fill="#fab915"/>
+    </g>
+    <g id="Group_7020" data-name="Group 7020" transform="translate(-496.717 -683.714)">
+      <g id="Iconly_Light_Arrow_-_Down_2" data-name="Iconly/Light/Arrow - Down 2" transform="translate(547.497 716.286) rotate(-90)">
+        <g id="Arrow_-_Down_2" data-name="Arrow - Down 2">
+          <path id="Stroke_1" data-name="Stroke 1" d="M13.572,0,6.786,6.786,0,0" fill="#fff"/>
+        </g>
+      </g>
+      <g id="Iconly_Light_Arrow_-_Down_2-2" data-name="Iconly/Light/Arrow - Down 2" transform="translate(536.607 716.286) rotate(-90)" opacity="0.62">
+        <g id="Arrow_-_Down_2-2" data-name="Arrow - Down 2">
+          <path id="Stroke_1-2" data-name="Stroke 1" d="M13.572,0,6.786,6.786,0,0" fill="#fff"/>
+        </g>
+      </g>
+      <g id="Iconly_Light_Arrow_-_Down_2-3" data-name="Iconly/Light/Arrow - Down 2" transform="translate(525.717 716.286) rotate(-90)" opacity="0.29">
+        <g id="Arrow_-_Down_2-3" data-name="Arrow - Down 2">
+          <path id="Stroke_1-3" data-name="Stroke 1" d="M13.572,0,6.786,6.786,0,0" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

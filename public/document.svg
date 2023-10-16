@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="66" height="66" viewBox="0 0 66 66">
+  <defs>
+    <filter id="Rectangle_3655" x="0" y="0" width="66" height="66" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="document" transform="translate(15 12)">
+    <g transform="matrix(1, 0, 0, 1, -15, -12)" filter="url(#Rectangle_3655)">
+      <rect id="Rectangle_3655-2" data-name="Rectangle 3655" width="36" height="36" rx="10" transform="translate(15 12)" fill="#fff"/>
+    </g>
+    <g id="Iconly_Bulk_Document" data-name="Iconly/Bulk/Document" transform="translate(10.225 9.295)">
+      <g id="Document-2" data-name="Document">
+        <path id="Path" d="M12.261,0H4.471C1.645,0,0,1.655,0,4.489v9.6c0,2.881,1.645,4.5,4.471,4.5h7.79c2.871,0,4.47-1.617,4.47-4.5v-9.6c0-2.835-1.6-4.489-4.47-4.489" fill="#fab915" opacity="0.4"/>
+        <path id="Combined_Shape" data-name="Combined Shape" d="M.111,9.573a.741.741,0,0,1,0-.78.73.73,0,0,1,.7-.344H8.1a.734.734,0,0,1,0,1.459H.809a.68.68,0,0,1-.091.006A.728.728,0,0,1,.111,9.573Zm.7-3.913a.726.726,0,0,1,0-1.451H8.1a.726.726,0,0,1,0,1.451Zm0-4.2a.725.725,0,1,1,0-1.45V0H3.587a.729.729,0,0,1,0,1.459Z" transform="translate(3.913 4.322)" fill="#fab915"/>
+      </g>
+    </g>
+  </g>
+</svg>

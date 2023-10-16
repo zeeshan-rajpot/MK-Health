@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="77.7" height="77.7" viewBox="0 0 77.7 77.7">
+  <defs>
+    <filter id="Path_32222" x="0" y="0" width="77.7" height="77.7" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Component_635_1" data-name="Component 635 – 1" transform="translate(9 6)">
+    <g transform="matrix(1, 0, 0, 1, -9, -6)" filter="url(#Path_32222)">
+      <path id="Path_32222-2" data-name="Path 32222" d="M48.85,79.7A29.85,29.85,0,1,0,19,49.85,29.85,29.85,0,0,0,48.85,79.7Z" transform="translate(-10 -14)" fill="#fff" fill-rule="evenodd"/>
+    </g>
+    <path id="brand-asana-svgrepo-com" d="M21.345,14.177A5.655,5.655,0,1,0,27,19.832,5.655,5.655,0,0,0,21.345,14.177Zm-14.69,0a5.655,5.655,0,1,0,5.655,5.655,5.657,5.657,0,0,0-5.655-5.655Zm13-7.069A5.655,5.655,0,1,1,14,1.454,5.655,5.655,0,0,1,19.655,7.109Z" transform="translate(15.85 16.555)" fill="#fab915"/>
+  </g>
+</svg>

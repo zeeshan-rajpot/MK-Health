@@ -1,0 +1,17 @@
+.MedicalProvidersbg{
+    background: url("/Group 7222.svg") no-repeat;
+    background-position: left center;
+    background-size: 170px;
+}
+.Medicalpaitentsbg{
+    background: url("/Group 7458.svg") no-repeat;
+    background-position: right center;
+    background-size: 170px;
+}
+.singupbtnbgimg{
+    background: url("/Component 623 – 1.svg") no-repeat;
+    background-color: #FAB915;
+    
+    background-position: right center;
+    padding-right: 70px;
+}
