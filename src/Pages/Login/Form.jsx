@@ -1,8 +1,20 @@
 import { Col, Container ,Row } from 'react-bootstrap'
 import './style.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
 
 const Form = () => {
+  const navigate = useNavigate();
+
+  const handleSignIn = () => {
+    // Perform any necessary actions before navigating
+
+    // Navigate to the "/home" route
+    navigate('/Patient');
+    alert('Login Successfully')
+  }
+
+
+  
   return (
     <>
     
@@ -33,7 +45,7 @@ const Form = () => {
            <Link to='/Forget'>   <p className="mb-0 " style={{color:"#B4B5B5"}}>Forget Password </p></Link>
             </div>
 
-            <button className="btnn py-1 px-4 border-0 shadow rounded-5 mt-3">               
+            <button className="btnn py-1 px-4 border-0 shadow rounded-5 mt-3" onClick={handleSignIn}>               
     <span className='me-4'>Sign In</span>
     <img  src="/Component 638 – 1.svg" width="30" height="30"/>
     

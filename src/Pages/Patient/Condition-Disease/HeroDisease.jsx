@@ -2,6 +2,7 @@
 
 import { Col, Container, Row } from 'react-bootstrap'
 import './Disease.css'
+import { Link } from 'react-router-dom'
 const HeroDisease = () => {
   return (
     <>
@@ -33,11 +34,12 @@ const HeroDisease = () => {
               Mk Health Care has streamlined and simplified the process of obtaining comprehensive guidance for managing your specific medical condition or disease. Before you begin, let's take a closer look at how this process works.
               </p>
              
-              <button className="btnn py-2 px-5 border-0 shadow rounded-5 mt-3">               
+   <Link to='/ConditionForm'>
+          <button className="btnn py-2 px-5 border-0 shadow rounded-5 mt-3">               
     <span className='m-auto'>Request Now</span>
     {/* <img  src="/Component 638 – 1.svg" width="30" height="30"/> */}
     
-</button>
+</button>   </Link> 
 
 
              

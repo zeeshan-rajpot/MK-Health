@@ -50,11 +50,13 @@ Prescription refills can sometimes be done online after the appropriate medical 
 
             </p>
           <div className="text-center">  
-        <button className=" btnn py-1 px-4 border-0 shadow rounded-5 mt-3">               
+       <Link  to='/RequestPrescription'>
+       <button className=" btnn py-1 px-4 border-0 shadow rounded-5 mt-3">               
     <span className='me-4'>Request Rx Refill</span>
     <img  src="/Component 638 – 1.svg" width="30" height="30"/>
     
 </button>
+</Link>
 </div>    </Col>
         </Row>
       

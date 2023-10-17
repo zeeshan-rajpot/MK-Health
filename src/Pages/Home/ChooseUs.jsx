@@ -15,7 +15,7 @@ const ChooseUs = () => {
 
     <Container className=" rounded-5  py-5 " style={{background:'#F2F2F2'}}>
         <Row className="text-start">
-            <Col md={3} xs={10} className="mt-3 mt-md-0 ms-4 ms-md-0">
+        <Col md={3} xs={10} className="mt-3 mt-md-0 ms-4 ms-md-0">
 <div className="p-4 position-absolute  " style={{borderRadius:'50% 50% 0 50%' , backgroundColor:'#FAB915' , width:'70px' , height:'70px'}}>
 <img src="/Path 31999.svg" width="25px" alt="" />
 </div>

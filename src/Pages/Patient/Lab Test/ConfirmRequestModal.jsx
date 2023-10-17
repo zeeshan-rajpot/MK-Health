@@ -1,4 +1,5 @@
 import { Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const ConfirmRequestModal = () => {
   const fields = [
@@ -61,12 +62,15 @@ const ConfirmRequestModal = () => {
    
     
 </button>
+
+<Link to='/Payment'>
+
 <button className="btnn py-1 px-4 border-0 shadow rounded-5 mt-3">               
     <span className='me-4'>Submit</span>
     <img  src="/Component 638 – 1.svg" width="30" height="30"/>
     
 </button>
-
+</Link>
 </Col>
 
       </Row>

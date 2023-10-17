@@ -36,7 +36,7 @@ Join the thousands of medical providers already using MK Health Care torun a mob
 <Row>
     <Col xs={6} md={6}>
     <div className=" shadow  rounded-5 w-100"  >
-              <button className=" border-0  rounded-5  singupbtnbgimg   py-2  text-light  shadow  text-nowrap  ps-3 " style={{}}>Get Started</button>
+        <a href="#teleservices">      <button className=" border-0  rounded-5  singupbtnbgimg   py-2  text-light  shadow  text-nowrap  ps-3 " style={{}}>Get Started</button></a>
 </div>
     </Col>
     <Col xs={6}  >

@@ -16,8 +16,8 @@ const DesiredLab = () => {
     
   return (
     <>
-      <Container>
-        <Row className=" m-auto mt-5 mobw100" style={{width:'75%'}}>
+      <Container id='requestLab'>
+        <Row className=" m-auto mt-5 mobw100" style={{width:'75%'}} >
           <Col className=" text-center shadow">
             <h5 className="mt-5">
               <b>Choose Desired Lab Tests</b>
@@ -55,7 +55,7 @@ const DesiredLab = () => {
 
 
             <div>
-  <div className="input-containerr shadow mobw100 rounded-5 my-4" style={{width:'50%'}}>
+  <div className="input-containerr shadow mobw100 rounded-5 my-4" style={{width:'50%'}} >
     <TagsInput
       value={tags}
       onChange={handleChange}

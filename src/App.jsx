@@ -9,14 +9,14 @@ import Login from "./Pages/Login";
 import SignUp from "./Pages/SignuP/SignUp";
 import Forget from "./Pages/Forget.jsx/Forget";
 import ConfrimPassword from "./Pages/Forget.jsx/ConfrimPassword";
-
-// 
 import LabTest from "./Pages/Patient/Lab Test";
 import LabRequest from "./Pages/Patient/Lab Test/LabRequest";
 import Condition from "./Pages/Patient/Condition-Disease";
 import Prescription from "./Pages/Patient/Prescription";
 import RequestPrescription from "./Pages/Patient/Prescription/Request Prescription";
 import ConditionForm from "./Pages/Patient/Condition-Disease/ConditionForm";
+import MyCharts from "./Pages/Patient/MyCharts";
+import Payment from "./Pages/Payment";
 
 // import LabRequest from "./Pages/Lab Test/LabRequest";
 
@@ -38,6 +38,8 @@ function App() {
           <Route path="/LabRequest" element={<LabRequest />} />
           <Route path="/RequestPrescription" element={<RequestPrescription />} />
           <Route path="/ConditionForm" element={<ConditionForm />} />
+          <Route path="/myCharts" element={<MyCharts />} />
+          <Route path="/Payment" element={<Payment />} />
           
         </Routes>
       </BrowserRouter>

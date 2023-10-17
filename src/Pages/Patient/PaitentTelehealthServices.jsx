@@ -20,7 +20,7 @@ const TelehealthServiceItem = ({ text, imagePath , link}) => (
     const serviceItems = [
       { text: "Request Lab Test", imagePath: "/Path 32206.svg" , link: "/LabTest" },
       { text: "Request Prescription", imagePath: "/Path 32207.svg" , link: "/Prescription"},
-      { text: "My Chart", imagePath: "/Path 32208.svg" , link: "/new-rx-requests"},
+      { text: "My Chart", imagePath: "/Path 32208.svg" , link: "/myCharts"},
       { text: "Condition/Disease", imagePath: "/Path 32209.svg" , link: "/Condition"},
     
       // Add more items as needed
@@ -29,8 +29,8 @@ const TelehealthServiceItem = ({ text, imagePath , link}) => (
 
   return (
     <>
-     <div className="teleservisesbg"> 
-        <Container className="mt-3 mt-md-5 py-3  text-center">
+     <div className="teleservisesbg" > 
+        <Container className="mt-3 mt-md-5 py-3  text-center" id='teleservices'>
           <Row>
             <Col>
               <h1><b>Telehealth Services</b></h1>

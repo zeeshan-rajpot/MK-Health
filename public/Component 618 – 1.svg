@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="121" height="82" viewBox="0 0 121 82">
+  <defs>
+    <filter id="Rectangle_147898" x="0" y="0" width="121" height="82" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Component_618_1" data-name="Component 618 – 1" transform="translate(9 6)">
+    <g transform="matrix(1, 0, 0, 1, -9, -6)" filter="url(#Rectangle_147898)">
+      <g id="Rectangle_147898-2" data-name="Rectangle 147898" transform="translate(9 6)" fill="#fff" stroke="#fff" stroke-width="0.5">
+        <rect width="103" height="64" rx="5" stroke="none"/>
+        <rect x="0.25" y="0.25" width="102.5" height="63.5" rx="4.75" fill="none"/>
+      </g>
+    </g>
+    <g id="Group_67830" data-name="Group 67830" transform="translate(24.084 18.3)">
+      <g id="Components---Sprint-3" transform="translate(0 0)">
+        <g id="assets-_x2F_-logo-_x2F_-mastercard-_x2F_-symbol" transform="translate(0 0)">
+          <path id="Fill-1" d="M240.3,138.63h11.761V117.4H240.3Z" transform="translate(-224.439 -114.519)" fill="#eb611c" fill-rule="evenodd"/>
+          <path id="Fill-2" d="M95.608,101.6a13.481,13.481,0,0,1,5.133-10.61,13.5,13.5,0,1,0,.01,21.22,13.46,13.46,0,0,1-5.143-10.61" transform="translate(-79 -88.1)" fill="#e41221" fill-rule="evenodd"/>
+          <path id="Fill-4" d="M321.428,109.959v-.521h-.138l-.157.364-.157-.364h-.138v.521h.1v-.393l.147.344h.1l.147-.344v.393Zm-.865,0v-.433h.177v-.089H320.3v.089h.177v.433Zm1.288-8.358a13.428,13.428,0,0,1-21.751,10.61,13.532,13.532,0,0,0,0-21.22,13.428,13.428,0,0,1,21.751,10.61Z" transform="translate(-278.359 -88.1)" fill="#f59e1e" fill-rule="evenodd"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

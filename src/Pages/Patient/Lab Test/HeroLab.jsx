@@ -29,12 +29,12 @@ const HeroLab = () => {
               <p style={{fontSize:'12px'}} className=" text-secondary  w-75 my-2">
               Mk Health Care has made it simple and convenient to request a lab order from your medical provider at affordable prices. Please review how the process works before getting started.
               </p>
-             
-              <button className="btnn py-2 px-5 border-0 shadow rounded-5 mt-3">               
+           <a href="#requestLab"> 
+              <button  className="btnn py-2 px-5 border-0 shadow rounded-5 mt-3">               
     <span className='m-auto'>Select tests now</span>
     {/* <img  src="/Component 638 – 1.svg" width="30" height="30"/> */}
     
-</button>
+</button></a> 
 
 
              
