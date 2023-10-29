@@ -1,6 +1,7 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { Col, Container, Row ,Modal } from "react-bootstrap";
-import ConfirmRequestModal from "../../Lab Test/ConfirmRequestModal";
+
+import ConditionPayModal from "../ConditionPayModal";
 
 const ConditionDiseaseForm = () => {
 
@@ -502,7 +503,7 @@ assess your current needs.</p>
       <Modal show={showModal} onHide={handleClose} size='lg'  >
       
       <Modal.Body className="p-0 rounded-3 ">
-        <ConfirmRequestModal/>
+        <ConditionPayModal/>
       </Modal.Body>
       
     </Modal>

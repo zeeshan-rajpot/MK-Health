@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './teleservise.css'
 
 const TelehealthServiceItem = ({ text, imagePath ,link }) => (
-    <Col md={3} xs={10} className="mt-3 mt-md-5 ms-4 ms-md-0 ">
+    <Col md={3} xs={10} className="mt-3 mt-md-5 ms-4 ms-md-0 " >
       <div className="p-4 position-absolute" style={{ borderRadius: '50% 50% 0 50%', backgroundColor: '#FAB915', width: '70px', height: '70px' }}>
         <img src={imagePath} width="25px" alt="" />
       </div>
@@ -18,9 +18,9 @@ const TelehealthServiceItem = ({ text, imagePath ,link }) => (
   
   const TelehealthServices = () => {
     const serviceItems = [
-      { text: "New Rx Requests", imagePath: "/Group 7482.svg" , link: "/new-rx-requests" },
+      { text: "New Rx Requests", imagePath: "/Group 7482.svg" , link: "/RxRequest" },
       { text: "Patient Care", imagePath: "/Path 32262.svg", link: "/new-rx-requests" },
-      { text: "My Chart", imagePath: "/Path 32208.svg" , link: "/new-rx-requests"},
+      { text: "My Chart", imagePath: "/Path 32208.svg" , link: "/ProviderChart"},
       { text: "Condition/Disease", imagePath: "/Path 32209.svg" , link: "/new-rx-requests" },
       { text: "Recent Activity", imagePath: "/Path 32242.svg" , link: "/new-rx-requests"},
       { text: "Invite Patients", imagePath: "/Group 7481.svg" , link: "/new-rx-requests"},
@@ -32,7 +32,7 @@ const TelehealthServiceItem = ({ text, imagePath ,link }) => (
   
     return (
       <>
-      <div className="teleservisesbg"> 
+      <div className="teleservisesbg" id='teleprovciderservices'> 
         <Container className="mt-3 mt-md-5 py-3  text-center">
           <Row>
             <Col>

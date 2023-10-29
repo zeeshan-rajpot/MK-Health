@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import 'react-tagsinput/react-tagsinput.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Index";
+import ScrollToTop from "./ScrollToTop";
 import Provider from "./Pages/Provider";
 import Patient from "./Pages/Patient";
 import Login from "./Pages/Login";
@@ -17,6 +18,13 @@ import RequestPrescription from "./Pages/Patient/Prescription/Request Prescripti
 import ConditionForm from "./Pages/Patient/Condition-Disease/ConditionForm";
 import MyCharts from "./Pages/Patient/MyCharts";
 import Payment from "./Pages/Payment";
+import RequestedPrescription from "./Pages/Patient/MyCharts/RequestedPrescription/INDEX.JSX";
+import RxRequest from "./Pages/Provider/NewRxRequests";
+import PaitentDetail from "./Pages/Provider/NewRxRequests/PaitentDetail";
+
+import RequestedRxForm from "./Pages/Provider/NewRxRequests/RequestedRxForm";
+import ReviewPrescribePage from "./Pages/Provider/NewRxRequests/ReviewPrescribePage";
+import ProviderChart from "./Pages/Provider/My Chart";
 
 // import LabRequest from "./Pages/Lab Test/LabRequest";
 
@@ -24,6 +32,7 @@ function App() {
   return (
     <>
       <BrowserRouter  >
+      <ScrollToTop/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Provider" element={<Provider />} />
@@ -40,6 +49,14 @@ function App() {
           <Route path="/ConditionForm" element={<ConditionForm />} />
           <Route path="/myCharts" element={<MyCharts />} />
           <Route path="/Payment" element={<Payment />} />
+          <Route path="/RequestedPrescription" element={<RequestedPrescription />} />
+          <Route path="/RxRequest" element={<RxRequest />} />
+          <Route path="/PaitentDetail" element={<PaitentDetail />} />
+          <Route path="/RequestedRxForm" element={<RequestedRxForm />} />
+          <Route path="/ReviewPrescribePage" element={<ReviewPrescribePage />} />
+          <Route path="/ProviderChart" element={<ProviderChart />} />
+          
+
           
         </Routes>
       </BrowserRouter>

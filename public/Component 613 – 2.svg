@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19.547" height="19.847" viewBox="0 0 19.547 19.847">
+  <g id="Component_613_2" data-name="Component 613 – 2" transform="translate(0.75 1.05)">
+    <path id="Path_32597" data-name="Path 32597" d="M112.62,63.147a2.527,2.527,0,1,0-2.526-2.527A2.526,2.526,0,0,0,112.62,63.147Z" transform="translate(-97.1 -45.1)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_32598" data-name="Path 32598" d="M102.5,63.147a2.527,2.527,0,1,0-2.527-2.527A2.526,2.526,0,0,0,102.5,63.147Z" transform="translate(-99.969 -45.1)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_32599" data-name="Path 32599" d="M102.5,53.022A2.527,2.527,0,1,0,99.969,50.5,2.526,2.526,0,0,0,102.5,53.022Z" transform="translate(-99.969 -47.969)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <g id="Component_612_1" data-name="Component 612 – 1" transform="translate(2.888)">
+      <path id="Path_32600" data-name="Path 32600" d="M110.159,47.969l-2.165,2.888,2.165,2.888m4.331,6.5V53.022a1.914,1.914,0,0,0-2.165-2.166h-2.888m-7.219,2.888v6.5" transform="translate(-102.219 -47.969)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>
