@@ -1,6 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'react-tagsinput/react-tagsinput.css';
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Index";
 import ScrollToTop from "./ScrollToTop";
@@ -40,7 +41,7 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/Forget" element={<Forget />} />
-          <Route path="/ConfrimPassword" element={<ConfrimPassword />} />
+          <Route path="/ConfrimPassword/:otp/:email" element={<ConfrimPassword />} />
           <Route path="/LabTest" element={<LabTest />} />
           <Route path="/Prescription" element={<Prescription />} />
           <Route path="/Condition" element={<Condition />} />

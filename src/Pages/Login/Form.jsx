@@ -1,19 +1,54 @@
+import { useState } from 'react';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Col, Container ,Row } from 'react-bootstrap'
 import './style.css'
 import { Link, useNavigate } from "react-router-dom";
+import { baseurl } from '../../const';
 
 const Form = () => {
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: '', password: '' });
 
-  const handleSignIn = () => {
-    // Perform any necessary actions before navigating
-
-    // Navigate to the "/home" route
-    navigate('/Patient');
-    alert('Login Successfully')
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   }
 
-
+  const handleSignIn = () => {
+    const { email, password } = formData;
+  
+    axios.post(`${baseurl}/api/auth/signin`, {
+      email: email,
+      password: password
+    })
+    .then((response) => {
+      console.log('Login successful:', response.data);
+      localStorage.setItem('token', response.data.token);
+      toast.success(`${response.data.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      // Handle successful login, e.g., navigate to another page
+    })
+    .catch((error) => {
+      console.error( error.response.data.message);
+      toast.error(` ${error.response.data.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      // Handle login error, e.g., show an error message
+    });
+  }
+  
   
   return (
     <>
@@ -30,12 +65,26 @@ const Form = () => {
         <div className="input-container shadow bg-light mt-3 ">
               {/* <FaUser className='icon' /> */}
               <img src={ "/Message.svg"} />
-              <input type="text" name='email'  placeholder="Davidwilliam@gmail.com" className="bg-light" />
+              <input 
+          type="text" 
+          name='email' 
+          value={formData.email} 
+          placeholder="Davidwilliam@gmail.com" 
+          className="bg-light" 
+          onChange={handleInputChange} 
+        />
             </div>
             <div className="input-container shadow bg-light mt-4 ">
               {/* <FaUser className='icon' /> */}
               <img src={ "/Iconly-Bold-Lock.svg"} />
-              <input type="password" name='email'  placeholder="*************" className="bg-light" />
+              <input 
+          type="password" 
+          name='password' 
+          value={formData.password} 
+          placeholder="*************" 
+          className="bg-light" 
+          onChange={handleInputChange} 
+        />
             </div>
 
             <div
@@ -62,7 +111,18 @@ const Form = () => {
 </div>
 
 
-
+<ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
 
 
 
@@ -71,3 +131,9 @@ const Form = () => {
 }
 
 export default Form
+
+
+
+
+
+

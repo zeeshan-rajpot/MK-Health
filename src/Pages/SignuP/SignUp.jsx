@@ -38,6 +38,7 @@ const SignUp = () => {
     if (isValid && !isAnyFieldEmpty) {
       handleShowModal();
       setButtonClicked(true);
+      // console.log("Form Data:", formData);
     }
   }
 
@@ -130,7 +131,7 @@ const SignUp = () => {
       </div>
       <Modal show={showModal} onHide={handleCloseModal} centered size='lg'>
         <Modal.Body>
-          <SelectOption/>
+          <SelectOption  formData={formData}/>
         </Modal.Body>
       </Modal>
     </>
