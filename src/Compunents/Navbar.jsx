@@ -10,6 +10,7 @@ import Buttun from "./Buttun";
 
 const Navbare = (props) => {
     const [activeTab, setActiveTab] = useState(props.activetab);
+    const isLoggedIn = localStorage.getItem("token");
   return (
     <>
       <div className=" z-1  bg-transparent  w-100  position-absolute  " >
@@ -84,11 +85,14 @@ const Navbare = (props) => {
                         <p className="mb-0" style={{ fontSize: "14px" }}>Chat</p>
                       </span>
                     </NavLink>
+                    {/* ... (rest of your code) ... */}
+                  {isLoggedIn ? (
+                    <Buttun text="Logged In" />
+                  ) : (
                     <NavLink to="/Login">
-                    <Buttun
-                    text='Login'
-                    />
+                      <Buttun text="Login" />
                     </NavLink>
+                  )}
                    
                   </Nav>
                 </Offcanvas.Body>

@@ -9,7 +9,7 @@ import { baseurl } from '../../const';
 
 const Form = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
-
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -33,7 +33,9 @@ const Form = () => {
         pauseOnHover: true,
         draggable: true,
       });
-      // Handle successful login, e.g., navigate to another page
+      setTimeout(() => {
+        navigate('/Patient');
+      }, 3000);
     })
     .catch((error) => {
       console.error( error.response.data.message);

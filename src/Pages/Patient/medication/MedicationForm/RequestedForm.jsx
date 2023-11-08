@@ -6,6 +6,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
+import { baseurl } from "../../../../const";
 
 // import Google from './Googlemap.jsx';
 const RequestForm = () => {
@@ -52,7 +53,7 @@ const RequestForm = () => {
 
       const prescriptionData = {
        
-        type: "disease",     //can be  'disease', 'refill','medication'
+        type: "medication",     //can be  'disease', 'refill','medication'
         details:medicationName,
         // patientId: "65426074cb256db0f30c1de1",
         reason: formData.reson,
@@ -89,7 +90,7 @@ const RequestForm = () => {
       };
 
       const response = await axios.post(
-        "http://localhost:5000/api/patient/newrequest",
+        `${baseurl}/api/patient/newrequest`,
         prescriptionData,
         { headers }
       );

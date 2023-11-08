@@ -9,6 +9,7 @@ import Provider from "./Pages/Provider";
 import Patient from "./Pages/Patient";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignuP/SignUp";
+import CreatemainAccount from "./Pages/SignuP/CreatemainAccount";
 import Forget from "./Pages/Forget.jsx/Forget";
 import ConfrimPassword from "./Pages/Forget.jsx/ConfrimPassword";
 import LabTest from "./Pages/Patient/Lab Test";
@@ -26,6 +27,8 @@ import PaitentDetail from "./Pages/Provider/NewRxRequests/PaitentDetail";
 import RequestedRxForm from "./Pages/Provider/NewRxRequests/RequestedRxForm";
 import ReviewPrescribePage from "./Pages/Provider/NewRxRequests/ReviewPrescribePage";
 import ProviderChart from "./Pages/Provider/My Chart";
+import Medication from "./Pages/Patient/medication/Medication";
+import MedicationFormPage from "./Pages/Patient/medication/MedicationForm/MedicationFormPage";
 
 // import LabRequest from "./Pages/Lab Test/LabRequest";
 
@@ -40,14 +43,19 @@ function App() {
           <Route path="/Patient" element={<Patient />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/CreatemainAccount" element={<CreatemainAccount />} />
+          
           <Route path="/Forget" element={<Forget />} />
           <Route path="/ConfrimPassword/:otp/:email" element={<ConfrimPassword />} />
           <Route path="/LabTest" element={<LabTest />} />
           <Route path="/Prescription" element={<Prescription />} />
           <Route path="/Condition" element={<Condition />} />
+          <Route path="/medication" element={<Medication />} />
+          <Route path="/MedicationFormPage/:medicationName" element={<MedicationFormPage />} />
+          
           <Route path="/LabRequest" element={<LabRequest />} />
-          <Route path="/RequestPrescription" element={<RequestPrescription />} />
-          <Route path="/ConditionForm" element={<ConditionForm />} />
+          <Route path="/RequestPrescription/:medicationName" element={<RequestPrescription />} />
+          <Route path="/ConditionForm/:Common" element={<ConditionForm />} />
           <Route path="/myCharts" element={<MyCharts />} />
           <Route path="/Payment" element={<Payment />} />
           <Route path="/RequestedPrescription" element={<RequestedPrescription />} />

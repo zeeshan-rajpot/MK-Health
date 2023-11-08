@@ -114,7 +114,12 @@ input{
   transform: rotate(45deg);
 }
 
-
+.medicationp {
+  color: #FAB915 !important;
+}
+button{
+  background-color: #FAB915 ;
+}
 .custom-checkbox {
   display: inline-block;
   position: relative;

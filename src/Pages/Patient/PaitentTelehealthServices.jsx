@@ -49,6 +49,16 @@ const TelehealthServiceItem = ({ text, imagePath , link}) => (
               />
             ))}
           </Row>
+          <Row className="text-center d-flex  align-items-center  justify-content-center ">
+            
+              <TelehealthServiceItem 
+              
+                text='Medications'
+                imagePath='/medication.svg'
+                link='/medication'
+              />
+       
+          </Row>
         </Container>
         </div>
     

@@ -1,9 +1,11 @@
+
+
 import { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import TagsInput from 'react-tagsinput';
 
-const SearchDiease = () => {
+const RxRefilltext = () => {
   const Common = [
     'Acne',
     'Asthma',
@@ -82,4 +84,4 @@ const SearchDiease = () => {
     </>
   );
 };
-export default SearchDiease;
+export default RxRefilltext;
