@@ -67,7 +67,10 @@ input[type='radio']:checked:after {
   border: 2px solid #ffa500;
 }
 
-
+.providerimg{
+  height: 100px !important;
+  width: 100px !important;
+}
 
 input{
   width: 100%;

@@ -87,7 +87,12 @@ const Navbare = (props) => {
                     </NavLink>
                     {/* ... (rest of your code) ... */}
                   {isLoggedIn ? (
-                    <Buttun text="Logged In" />
+
+<NavLink to="/profile">
+<Buttun text="Profile" />
+
+</NavLink>
+                   
                   ) : (
                     <NavLink to="/Login">
                       <Buttun text="Login" />

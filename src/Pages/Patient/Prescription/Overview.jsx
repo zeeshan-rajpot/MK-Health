@@ -18,7 +18,7 @@ const Overview = () => {
   return (
     <>
       <Container className='mt-5'>
-      {selectedComponent === null && (
+      {/* {selectedComponent === null && ( */}
           <div>
             <Row>
               <Col>
@@ -57,13 +57,15 @@ const Overview = () => {
                   and management.
                 </p>
                 <div className='text-center'>
+                  <Link to='/RequestPrescription'>
                   <button
                     className=' btnn py-1 px-4 border-0 shadow rounded-5 mt-3'
-                    onClick={showChooseMedication}
+                    // onClick={showChooseMedication}
                   >
                     <span className='me-4'>Get Prescription Refill</span>
                     <img src='/Component 638 – 1.svg' width='30' height='30' />
                   </button>
+                  </Link>
                 </div>{' '}
               </Col>
             </Row>
@@ -89,22 +91,24 @@ const Overview = () => {
                   is safe and appropriate to do so.
                 </p>
                 <div className='text-center'>
+                  <Link to='/RequestPrescription'>
                   <button
                     className=' btnn py-1 px-4 border-0 shadow rounded-5 mt-3'
-                    onClick={showRxRefilltext}
+                    // onClick={showRxRefilltext}
                   >
                     <span className='me-4'>Request Rx Refill</span>
                     <img src='/Component 638 – 1.svg' width='30' height='30' />
                   </button>
+                  </Link>
                 </div>{' '}
               </Col>
             </Row>
           </div>
           
-          )}
+          {/* // )} */}
 
-          {selectedComponent === 'ChooseMedication' && <ChooseMedication />}
-          {selectedComponent === 'RxRefilltext' && <RxRefilltext />}
+          {/* // {selectedComponent === 'ChooseMedication' && <ChooseMedication />}
+          // {selectedComponent === 'RxRefilltext' && <RxRefilltext />} */}
       </Container>
     </>
   );

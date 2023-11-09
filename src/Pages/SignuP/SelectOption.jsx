@@ -3,13 +3,15 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { baseurl } from '../../const';
-const SelectOption = ({ formData }) => {
-  // console.log('Form Data in SelectOption:', formData);
+import { useNavigate } from 'react-router-dom';
 
+const SelectOption = ({ formData }) => {
+  console.log('Form Data in SelectOption:', formData);
+  const navigate = useNavigate();
   const sendDataToApi = async (type) => {
     try {
       const { name, email, password } = formData;
-      const response = await axios.post(`${baseurl}api/auth/signup`, {
+      const response = await axios.post(`https://hkhealth.azurewebsites.net/api/auth/signup`, {
         name,
         email,
          password,
@@ -26,6 +28,9 @@ const SelectOption = ({ formData }) => {
         pauseOnHover: true,
         draggable: true,
       });
+      setTimeout(() => {
+        navigate('/Login');
+      }, 3000);
     } catch (error) {
       // console.error('Error:', error.response.data.message);
       toast.error(` ${error.response.data.message}`, {

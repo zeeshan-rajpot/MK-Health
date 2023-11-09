@@ -15,15 +15,7 @@ const PendingRequest = () => {
          
             <RequestCard />
           
-            <RequestCard />
-    
-            <RequestCard />
-        
-            <RequestCard />
-       
-            <RequestCard />
-         
-            <RequestCard />
+            
     
         </Row>
       </Container>

@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from "react";
 import { Col, Container, Row, Modal } from "react-bootstrap";
 import ConfirmRequestModal from "../../Lab Test/ConfirmRequestModal";
@@ -16,7 +17,7 @@ const RequestForm = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [responseData, setResponseData] = useState(null);
   const [formData, setFormData] = useState({});
-//   console.log(formData);
+  // console.log(formData);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -38,7 +39,7 @@ const RequestForm = () => {
   //   };
 
   const handleSubmit = async () => {
-    console.log("hhhhhhh");
+    // console.log("hhhhhhh");
     try {
       const token = localStorage.getItem("token"); // Retrieve token from localStorage
 
@@ -53,12 +54,12 @@ const RequestForm = () => {
 
       const prescriptionData = {
        
-        type: "medication",     //can be  'disease', 'refill','medication'
-        details:medicationName,
+        type: "disease",     //can be  'disease', 'refill','medication'
+        details:'fever',
         // patientId: "65426074cb256db0f30c1de1",
         reason: formData.reson,
         personalInformation: {
-          name: formData.FirstName + formData.LastName,
+          name: formData.FirstName +" " +formData.LastName,
           address: {
             streetAddress: formData.Address,
             city: formData.City,
@@ -353,7 +354,7 @@ const RequestForm = () => {
                         backgroundColor: "transparent",
                       }}
                     >
-               <option value="AL">Alabama (AL)</option>
+                     <option value="AL">Alabama (AL)</option>
 	<option value="AK">Alaska (AK)</option>
 	<option value="AZ">Arizona (AZ)</option>
 	<option value="AR">Arkansas (AR)</option>

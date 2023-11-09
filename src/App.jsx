@@ -29,6 +29,8 @@ import ReviewPrescribePage from "./Pages/Provider/NewRxRequests/ReviewPrescribeP
 import ProviderChart from "./Pages/Provider/My Chart";
 import Medication from "./Pages/Patient/medication/Medication";
 import MedicationFormPage from "./Pages/Patient/medication/MedicationForm/MedicationFormPage";
+import Profile from "./Pages/Profile/profile";
+import RequestPrescriptionnew from "./Pages/Patient/Prescription/RequestPrescriptionnew/RequestPrescriptionnew";
 
 // import LabRequest from "./Pages/Lab Test/LabRequest";
 
@@ -43,6 +45,8 @@ function App() {
           <Route path="/Patient" element={<Patient />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/profile" element={<Profile />} />
+          
           <Route path="/CreatemainAccount" element={<CreatemainAccount />} />
           
           <Route path="/Forget" element={<Forget />} />
@@ -54,6 +58,7 @@ function App() {
           <Route path="/MedicationFormPage/:medicationName" element={<MedicationFormPage />} />
           
           <Route path="/LabRequest" element={<LabRequest />} />
+          <Route path="/RequestPrescription" element={<RequestPrescriptionnew />} />
           <Route path="/RequestPrescription/:medicationName" element={<RequestPrescription />} />
           <Route path="/ConditionForm/:Common" element={<ConditionForm />} />
           <Route path="/myCharts" element={<MyCharts />} />
