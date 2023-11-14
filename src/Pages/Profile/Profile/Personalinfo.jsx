@@ -57,23 +57,23 @@ const PersonalInfo = () => {
   ];
 
   // const [values, setValues] = useState(Array(inputDetails.length).fill(''));
-  const [values, setValues] = useState({
-    firstName: userData?.specific_Details?.firstName || '',
-    lastName: userData?.specific_Details?.lastName || '',
-    email: userData?.data?.email || '',
-    address: userData?.specific_Details?.location?.address || '',
-    city: userData?.specific_Details?.location?.city || '',
-    state: userData?.specific_Details?.location?.state || '',
-    phone: userData?.specific_Details?.phone || '',
-    dob: userData?.specific_Details?.dob || '',
-  });
+  // const [values, setValues] = useState({
+  //   firstName: userData?.specific_Details?.firstName || '',
+  //   lastName: userData?.specific_Details?.lastName || '',
+  //   email: userData?.data?.email || '',
+  //   address: userData?.specific_Details?.location?.address || '',
+  //   city: userData?.specific_Details?.location?.city || '',
+  //   state: userData?.specific_Details?.location?.state || '',
+  //   phone: userData?.specific_Details?.phone || '',
+  //   dob: userData?.specific_Details?.dob || '',
+  // });
 
-  const handleChange = (field, value) => {
-    setValues((prevValues) => ({
-      ...prevValues,
-      [field]: value,
-    }));
-  };
+  // const handleChange = (field, value) => {
+  //   setValues((prevValues) => ({
+  //     ...prevValues,
+  //     [field]: value,
+  //   }));
+  // };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -130,7 +130,7 @@ const PersonalInfo = () => {
               className='shadow border-0 w-100 m-0 p-2 rounded-5'
               placeholder={input.placeholder}
               value={input.value} // Use values object instead of values array
-              onChange={(e) => handleChange(input.label, e.target.value)}
+              // onChange={(e) => handleChange(input.label, e.target.value)}
             />
           </div>
         ))}

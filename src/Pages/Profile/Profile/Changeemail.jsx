@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
+import { Row, Col } from 'react-bootstrap';
+import { baseurl } from '../../../const';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
-export const Changeemail = () => {
+const Changeemail = () => {
   const inputDetails = [
     {
       placeholder: 'Davidwilliam@gmail.com',
@@ -13,10 +17,77 @@ export const Changeemail = () => {
   ];
 
   const [values, setValues] = useState(Array(inputDetails.length).fill(''));
+
   const handleChange = (index, e) => {
     const updatedValues = [...values];
     updatedValues[index] = e.target.value;
     setValues(updatedValues);
+  };
+
+  const handleSaveChanges = () => {
+    const oldEmail = values[0];
+    const newEmail = values[1];
+    const confirmNewEmail = values[2];
+
+    if (newEmail !== confirmNewEmail) {
+      toast.error('New Passwords do not match', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+
+    // Add logic to save changes to the server
+    axios
+      .put(
+        `${baseurl}/api/auth/changeemail`,
+        {
+          oldEmail,
+          newEmail,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log('Email updated successfully:', response.data);
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      })
+      .catch((error) => {
+        console.error('Error updating email:', error.response.data.message);
+        // Add logic to handle error (if needed)
+
+
+        toast.error( error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      });
   };
 
   const generateInputFields = () => {
@@ -34,7 +105,7 @@ export const Changeemail = () => {
               type={input.type || 'password'}
               className='bg-light w-100'
               value={values[index]}
-              onChange={e => handleChange(index, e)}
+              onChange={(e) => handleChange(index, e)}
             />
           </div>
         </div>
@@ -43,13 +114,13 @@ export const Changeemail = () => {
   };
 
   return (
+    <>
     <div>
       <Row>
         <Row className='border-bottom border-1'>
           <p className='my-0 mb-2' style={{ color: '#FAB915' }}>
             Change Email
           </p>
-        
         </Row>
         <div className='mt-3'>{generateInputFields()}</div>
         <Row className='mt-5 text-center'>
@@ -57,6 +128,7 @@ export const Changeemail = () => {
             <button
               className='border-50 text-white w-25 border-0 rounded-5 p-2'
               style={{ backgroundColor: '#FAB915' }}
+              onClick={handleSaveChanges}
             >
               Save Changes
             </button>
@@ -64,6 +136,22 @@ export const Changeemail = () => {
         </Row>
       </Row>
     </div>
+
+<ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
+{/* Same as */}
+<ToastContainer />
+</>
   );
 };
 
