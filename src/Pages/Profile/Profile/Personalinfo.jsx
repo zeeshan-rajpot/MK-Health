@@ -42,10 +42,10 @@ const PersonalInfo = () => {
       });
   }, []);// Empty dependency array to run the effect once when the component mounts
 
-
+console.log(userData)
 
   const inputDetails = [
-    { placeholder: 'John', label: 'First Name ', type: 'text' , value: userData?.specific_Details?.firstName || ''},
+    { placeholder: 'John', label: 'First Name ', type: 'text' , value: userData?.specific_Details?.firstName || ''  },
     { placeholder: 'Wick', label: 'Last Name', value: userData?.specific_Details?.lastName || ''  },
     { placeholder: 'email', label: 'Email' , value: userData?.data?.email || '' },
     { placeholder: 'Address Line 1', label: 'Adress ' , value: userData?.specific_Details?.location?.address || '' },
@@ -74,6 +74,12 @@ const PersonalInfo = () => {
   //     [field]: value,
   //   }));
   // };
+
+  const handleInputChange = (index, newValue) => {
+    const updatedInputDetails = [...inputDetails];
+    updatedInputDetails[index].value = newValue;
+    setInputDetails(updatedInputDetails); // Assuming you have a state variable setInputDetails to update the inputDetails array
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -122,18 +128,18 @@ const PersonalInfo = () => {
         </p>
       </Row>
       <Row>
-        {inputDetails.map((input, index) => (
-          <div key={index} className='m-auto mobw90' style={{ width: '80%' }}>
-            <p className='mb-1 ms-3 mt-3'>{input.label}</p>
-            <input
-              type={input.type || 'text'}
-              className='shadow border-0 w-100 m-0 p-2 rounded-5'
-              placeholder={input.placeholder}
-              value={input.value} // Use values object instead of values array
-              // onChange={(e) => handleChange(input.label, e.target.value)}
-            />
-          </div>
-        ))}
+      {inputDetails.map((input, index) => (
+  <div key={index} className='m-auto mobw90' style={{ width: '80%' }}>
+    <p className='mb-1 ms-3 mt-3'>{input.label}</p>
+    <input
+      type={input.type || 'text'}
+      className='shadow border-0 w-100 m-0 p-2 rounded-5'
+      placeholder={input.placeholder}
+      value={input.value}
+      onChange={(e) => handleInputChange(index, e.target.value)}
+    />
+  </div>
+))}
         {/* Gender section using state */}
         <div className='m-auto mobw90' style={{ width: '80%' }}>
           <p className='mb-1 ms-3 mt-3'>Gender</p>

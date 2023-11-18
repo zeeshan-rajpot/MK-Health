@@ -31,6 +31,11 @@ import Medication from "./Pages/Patient/medication/Medication";
 import MedicationFormPage from "./Pages/Patient/medication/MedicationForm/MedicationFormPage";
 import Profile from "./Pages/Profile/profile";
 import RequestPrescriptionnew from "./Pages/Patient/Prescription/RequestPrescriptionnew/RequestPrescriptionnew";
+import Chart from "./Pages/chat";
+import MessagePatients from "./Pages/Provider/MessageAllPatients/MessageAllPatients";
+import RecentActivity from "./Pages/Provider/recent Activity/RecentActivity";
+import InvitePatients from "./Pages/Provider/invite paitent/InvitePatients";
+import PracticeStates from "./Pages/Provider/Practice stats/PracticeStates";
 
 // import LabRequest from "./Pages/Lab Test/LabRequest";
 
@@ -46,8 +51,10 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/Chat" element={<Chart />} />
           
           <Route path="/CreatemainAccount" element={<CreatemainAccount />} />
+          <Route path="/MessagePatients" element={<MessagePatients />} />
           
           <Route path="/Forget" element={<Forget />} />
           <Route path="/ConfrimPassword/:otp/:email" element={<ConfrimPassword />} />
@@ -69,8 +76,9 @@ function App() {
           <Route path="/RequestedRxForm" element={<RequestedRxForm />} />
           <Route path="/ReviewPrescribePage" element={<ReviewPrescribePage />} />
           <Route path="/ProviderChart" element={<ProviderChart />} />
-          
-
+          <Route path="/RecentActivity" element={<RecentActivity />} />
+          <Route path="/InvitePatients" element={<InvitePatients />} />
+          <Route path="/PracticeStates" element={<PracticeStates />} />
           
         </Routes>
       </BrowserRouter>

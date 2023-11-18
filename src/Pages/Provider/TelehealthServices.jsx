@@ -21,11 +21,11 @@ const TelehealthServiceItem = ({ text, imagePath ,link }) => (
       { text: "New Rx Requests", imagePath: "/Group 7482.svg" , link: "/RxRequest" },
       { text: "Patient Care", imagePath: "/Path 32262.svg", link: "/new-rx-requests" },
       { text: "My Chart", imagePath: "/Path 32208.svg" , link: "/ProviderChart"},
-      { text: "Condition/Disease", imagePath: "/Path 32209.svg" , link: "/new-rx-requests" },
-      { text: "Recent Activity", imagePath: "/Path 32242.svg" , link: "/new-rx-requests"},
-      { text: "Invite Patients", imagePath: "/Group 7481.svg" , link: "/new-rx-requests"},
+      { text: "Message All Paitents", imagePath: "/Path 32209.svg" , link: "/MessagePatients" },
+      { text: "Recent Activity", imagePath: "/Path 32242.svg" , link: "/RecentActivity"},
+      { text: "Invite Patients", imagePath: "/Group 7481.svg" , link: "/InvitePatients"},
       { text: "Collagues", imagePath: "/Path 32254.svg" , link: "/new-rx-requests"},
-      { text: "Practice Stats", imagePath: "/Path 32258.svg" , link: "/new-rx-requests"},
+      { text: "Practice Stats", imagePath: "/Path 32258.svg" , link: "/PracticeStates"},
 
       // Add more items as needed
     ];

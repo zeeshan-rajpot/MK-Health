@@ -1,131 +1,215 @@
-import { useState, useRef, useEffect } from 'react';
-import { Col, Container, Row, Modal } from 'react-bootstrap';
-import Footer from "../../../Compunents/Footer"
-import Navbare from "../../../Compunents/Navbar"
-
+import { useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+import Footer from '../../../Compunents/Footer';
+import Navbare from '../../../Compunents/Navbar';
+import { Link } from 'react-router-dom';
 
 const ProviderChart = () => {
-    const datePickerRef = useRef(null);
+  const [isOpen1, setIsOpen1] = useState(false);
+  const [iconSrc1, setIconSrc1] = useState('./galaAdd0.svg');
 
-  const openDatePicker = () => {
-    datePickerRef.current.click();
+  const handleToggle1 = () => {
+    setIsOpen1(!isOpen1);
+
+    // Change the icon source based on the current state
+    const newIconSrc1 = isOpen1 ? './galaAdd0.svg' : './gala_add.svg';
+    setIconSrc1(newIconSrc1);
   };
 
-  const LabDetails = [
-    { placeholder: 'Eg. Panadol Medicine', label: 'Your Notes', type: 'text' },
-    { placeholder: 'Eg. Panadol Medicine', label: 'Your Notes', type: 'text' },
-    {
-      placeholder: 'Covid-19 IgG Antibody',
-      label: 'Lab Test(s) Ordered',
-      type: 'text',
-    },
-  ];
+  const [isOpen2, setIsOpen2] = useState(false);
+  const [iconSrc2, setIconSrc2] = useState('./galaAdd0.svg');
 
-  const [values, setValues] = useState(Array(LabDetails.length).fill(''));
+  const handleToggle2 = () => {
+    setIsOpen2(!isOpen2);
 
-  const handleChange = (index, e) => {
-    const updatedValues = [...values];
-    updatedValues[index] = e.target.value;
-    setValues(updatedValues);
+    // Change the icon source based on the current state
+    const newIconSrc2 = isOpen2 ? './galaAdd0.svg' : './gala_add.svg';
+    setIconSrc2(newIconSrc2);
   };
   return (
     <>
-    <Navbare/>
+      <Navbare />
 
-    <Container>
+      <Container>
         <Row>
-          <Col>
-            <h3 className='m-auto py-3' style={{ width: '75%' }}>
-              My Chart
-            </h3>
+          <Col className='mt-5'>
+            <div className='text-center'>
+              <h3 className='m-auto mt-5' style={{ color: '#FAB915' }}>
+                <b> My Chart </b>
+              </h3>
+            </div>
             <div
-              className=' m-auto  shadow py-5 mobw100 rounded-0 '
+              className=' m-auto mt-4 shadow py-5 mobw100 rounded-5 '
               style={{ width: '80%' }}
             >
               <div className=' m-auto' style={{ width: '80%' }}>
                 <Row>
                   <Col md={6}>
-                    <div className='p-5 bg-white shadow d-flex justify-content-between align-items-center rounded-3 '>
-                      <img src='./Group 7651.svg' alt='text' />
-                      <p className='my-0' style={{ fontSize: '15px' }}>
-                        Messages partner
-                      </p>
-                      <img src='./Path 32622.svg' alt='down arrow' />
-                    </div>
+                  <Link to='/OrdermySelf'>
+                    <button
+                      className='w-100 p-3 rounded-5 border-0 text-white'
+                      style={{ backgroundColor: '#FAB915' }}
+                    >
+                      <img
+                        src='./icomoon-free_lab.svg'
+                        alt='down arrow'
+                        className='me-4'
+                      />
+                      Order For Myself
+                    </button>
+                    </Link>
                   </Col>
                   <Col md={6}>
-                    <div className='p-5 bg-white shadow d-flex justify-content-between align-items-center rounded-3 mt-3 mt-md-0'>
-                      <img src='./Group 7651.svg' alt='text' />
-
-                      <p className='my-0' style={{ fontSize: '15px' }}>
-                        Order for Myself
-                      </p>
-                      <img src='./Path 32622.svg' alt='down arrow' />
-                    </div>
+                    <button
+                      className='w-100 p-3 rounded-5 border-0 text-white'
+                      style={{ backgroundColor: '#FAB915' }}
+                    >
+                      <img
+                        src='./chartsendMessage.svg'
+                        alt='down arrow'
+                        className='me-4'
+                      />
+                    Message To Colleagues
+                    </button>
                   </Col>
                 </Row>
               </div>
             </div>
             <br />
             <br />
+
             <div
-              className=' m-auto  shadow py-5 mobw100 rounded-0 '
+              className=' m-auto pt-5 mobw100 rounded-0 '
               style={{ width: '80%' }}
             >
-              <div className=' m-auto d-flex pb-4' style={{ width: '80%' }}>
-                <h6 className=''>
-                  <b style={{ color: '#FAB915' }}>
-                    September 30,2022 - Lab Test
-                  </b>
-                </h6>
-                <img src='./Path 32622.svg' alt='down arrow' className='ms-5' />
-              </div>
-              <div className=' m-auto' style={{ width: '80%' }}>
-                <button
-                  className='btnn py-2 px-4 border-0 shadow rounded-5 text-white'
-                  style={{ backgroundColor: '#FAB915' }}
-                >
-                  <span className='me-4'>View Lab Result</span>
-                  <img src='/Component 638 – 1.svg' width='30' height='30' />
-                      
-                </button>
-              </div>
-              <div>
-                {LabDetails.map((input, index) => (
-                  <div
-                    key={index}
-                    className=' m-auto mobw90 mt-4'
-                    style={{ width: '80%' }}
-                  >
-                    <p className='mb-1 ms-3 mt-3 text-muted'>{input.label}</p>
-                    <input
-                      type={input.type}
-                      className='shadow border-0 w-100 m-0 p-3 rounded-5 text-black'
-                      placeholder={input.placeholder}
-                      value={values[index]}
-                      onChange={e => handleChange(index, e)}
-                      style={{
-                        '--placeholder-color': 'black',
-                        'font-weight': 'normal',
-                      }}
-                    />
-                  </div>
-                ))}
-                <div className=' m-auto' style={{ width: '80%' }}>
-                  <button
-                  className='text-white rounded-3 w-50  border-0 p-3 d-flex justify-content-between align-items-center mt-5'
-                  style={{ backgroundColor: '#FAB915' }}
-                >
-                  <img src='./Component 619 – 3.svg' alt='plus' />
-                  April 24, 2023 - Lab Results
+              <p>Previous Order History</p>
+            </div>
+            <div
+              className=' m-auto shadow  py-5 mobw100 rounded-0 rounded-5'
+              style={{ width: '80%' }}
+            >
+              <div
+                className='m-auto d-flex justify-content-between align-items-center pb-4'
+                style={{ borderBottom: '1px solid #FAB915', width: '90%' }}
+              >
+                <div className='d-flex'>
+                  {' '}
                   <img
-                    src='./ArrowRight.svg'
-                    alt='dropdown'
+                    src={iconSrc1}
+                    alt='open'
+                    className='me-4'
+                    role='button'
+                    onClick={handleToggle1}
                   />
-                </button>
-
+                  <p className='my-0'>
+                    Covid-19
+                    <br />
+                    Lab Test
+                  </p>
+                </div>
+                <div>
+                  <p>September 30, 2023</p>
                 </div>
               </div>
+              {isOpen1 && (
+                <div
+                  className=' m-auto  py-3 mobw100 rounded-0 rounded-5'
+                  style={{ width: '80%' }}
+                >
+                  <div className='m-auto  ' style={{ width: '90%' }}>
+                    <div className='text-center'>
+                      <button
+                        className='rounded-5 text-white p-2 border-0 w-25'
+                        style={{ backgroundColor: '#FAB915' }}
+                      >
+                        <img src='./pepicons-pencil_file.svg' alt='' />
+                        View Lab Result
+                      </button>
+                    </div>
+
+                    <div
+                      className='m-auto d-flex flex-column  justify-content-start align-items-start '
+                      style={{ width: '90%' }}
+                    >
+                      <p className='mt-3 my-0' style={{ color: '#FAB915' }}>
+                        Your Note
+                      </p>
+                      <p className='my-0 '>Screw this test</p>
+                      <p className='mt-3 my-0' style={{ color: '#FAB915' }}>
+                        Lab Test Ordered
+                      </p>
+                      <p className='my-0 '>
+                        COVID-19 lgG Antibody, Semi-Quantitative
+                      </p>
+                      <p className='mt-3 my-0' style={{ color: '#FAB915' }}>
+                        Total Fee
+                      </p>
+                      <p className='my-0 '> $0.00</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div
+                className='mt-5 m-auto d-flex justify-content-between align-items-center pb-4'
+                style={{ width: '90%' }}
+              >
+                <div className='d-flex'>
+                  {' '}
+                  <img
+                    src={iconSrc2}
+                    alt=''
+                    className='me-4'
+                    role='button'
+                    onClick={handleToggle2}
+                  />
+                  <p className='my-0'>
+                    Covid-19
+                    <br />
+                    Lab Test
+                  </p>
+                </div>
+                <div>
+                  <p>September 30, 2023</p>
+                </div>
+              </div>
+              {isOpen2 && (
+                <div
+                  className=' m-auto  py-5 mobw100 rounded-0 rounded-5'
+                  style={{ width: '80%' }}
+                >
+                  <div className='m-auto  pb-4' style={{ width: '90%' }}>
+                    <div className='text-center'>
+                      <button
+                        className='rounded-5 text-white p-2 border-0 w-25'
+                        style={{ backgroundColor: '#FAB915' }}
+                      >
+                        <img src='./pepicons-pencil_file.svg' alt='' />
+                        View Lab Result
+                      </button>
+                    </div>
+
+                    <div
+                      className='m-auto d-flex flex-column  justify-content-start align-items-start pb-4'
+                      style={{ width: '90%' }}
+                    >
+                      <p className='mt-3 my-0' style={{ color: '#FAB915' }}>
+                        Your Note
+                      </p>
+                      <p className='my-0 '>Screw this test</p>
+                      <p className='mt-3 my-0' style={{ color: '#FAB915' }}>
+                        Lab Test Ordered
+                      </p>
+                      <p className='my-0 '>
+                        COVID-19 lgG Antibody, Semi-Quantitative
+                      </p>
+                      <p className='mt-3 my-0' style={{ color: '#FAB915' }}>
+                        Total Fee
+                      </p>
+                      <p className='my-0 '> $0.00</p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             <br />
@@ -133,9 +217,9 @@ const ProviderChart = () => {
           </Col>
         </Row>
       </Container>
-<Footer/>    
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default ProviderChart
+export default ProviderChart;
