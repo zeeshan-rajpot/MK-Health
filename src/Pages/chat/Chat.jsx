@@ -1,102 +1,258 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import io from 'socket.io-client';
 import { Col, Container, Row } from 'react-bootstrap';
 import './chat.css';
-import { Link } from 'react-router-dom';
+
+// import { Link } from 'react-router-dom';
 const Chat = () => {
-  const [chats, setChats] = useState([
-    {
-      id: 'chat1',
-      user: 'Gus M.',
-      messages: [
-        { text: 'Hello!', sent: true },
-        { text: 'Hi there!', sent: true },
-        { text: 'How are you?', sent: true },
-        { text: 'What are you doing?', sent: true },
-      ],
-    },
-    {
-      id: 'chat2',
-      user: 'Sam S.',
-      messages: [
-        {
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-          sent: true,
+
+  const [socket, setSocket] = useState(null);
+  const [conversationData, setConversationData] = useState([]);
+  const [chats, setChats] = useState([]);
+  const [selectedChat, setSelectedChat] = useState(chats.length > 0 ? chats[0].id : null);
+  const [message, setMessage] = useState('');
+  const [userDetails, setUserDetails] = useState(null);
+  const [sendermsgId, setSendermsgId] = useState(null);
+  const [selectedChatId, setSelectedChatId] = useState(null);
+  const [chatSelected, setChatSelected] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+
+  // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDIxYWY1YTRhMTcxODEyNTFhNDgwZSIsImlhdCI6MTcwMDE0Mjg5MH0.pdZv1QQIsH4xF4oMib5MIaeELiyEquvetQ2q39lQ8m8'; // Replace with your actual access token
+
+  const token =  localStorage.getItem('token');
+
+
+
+  // State variable to store user ID
+
+
+  useEffect(() => {
+    // Fetch user details when the component mounts
+    fetchUserDetails();
+  }, []);
+
+  // Function to fetch user details using the token
+  const fetchUserDetails = async () => {
+    try {
+      const response = await axios.get('https://hkhealth.azurewebsites.net/api/auth/getdetails', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
         },
-        { text: 'Lorem ipsum dolor sit amet, ', sent: true },
-      ],
-    },
-    { id: 'chat3', user: 'Andrew H.', messages: [] },
-    { id: 'chat4', user: 'VooDoo V.', messages: [] },
-    { id: 'chat5', user: 'Paco S.', messages: [] },
-    { id: 'chat6', user: 'Sena K.', messages: [] },
-    { id: 'chat7', user: 'Julia M.', messages: [] },
-    { id: 'chat8', user: 'More User', messages: [] },
-    { id: 'chat9', user: 'One User', messages: [] },
-    { id: 'chat10', user: 'User', messages: [] },
-    { id: 'chat10', user: 'User', messages: [] },
-   
-  ]);
+      });
 
-  const [selectedChat, setSelectedChat] = useState(chats[0].id);
+      // Log the user ID to the console
+      console.log(response.data.data._id);
 
-  const handleSendMessage = message => {
-    const updatedChats = chats.map(chat => {
-      if (chat.id === selectedChat) {
-        return {
-          ...chat,
-          messages: [...chat.messages, { text: message, sent: true }],
-        };
-      }
-      return chat;
-    });
-    setChats(updatedChats);
+      // Store user details in the state variable
+      setUserDetails(response.data);
+
+      // Store the user ID in the state variable
+      setSendermsgId(response.data.data._id);
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
   };
+
+
+
+
+console.log(sendermsgId)
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://hkhealth.azurewebsites.net/api/messenges/conversations', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        console.log(response.data)
+        setConversationData(response.data);
+      } catch (error) {
+        console.error('Error fetching conversation data:', error);
+      }
+    };
+
+    fetchData();
+  }, [token]);
+
+  useEffect(() => {
+    const formattedChats = conversationData.map((conversation) => {
+      const participants = conversation.participants.map((participant) => participant.name);
+      return {
+        id: conversation._id,
+        user: participants.join(', '),
+        messages: [], // You might want to fetch messages from the API as well
+      };
+    });
+
+    setChats(formattedChats);
+  }, [conversationData]);
+
+  useEffect(() => {
+    const newSocket = io('https://hkhealth.azurewebsites.net'); // Replace with your server URL
+    setSocket(newSocket);
+
+    return () => newSocket.close();
+  }, [setSocket]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on('connect', () => {
+        console.log('Connected to the Socket.IO server');
+      });
+
+      return () => {
+        socket.disconnect();
+      };
+    }
+  }, [socket]);
+
+  const handleJoinConversation = (conversationId) => {
+    if (socket) {
+      const userId = sendermsgId; // Replace with the actual user ID
+      socket.emit('joinConversation', { conversationId, userId });
+      setSelectedChat(conversationId);
+    } else {
+      console.error('Socket is not initialized');
+    }
+  };
+
+  const handleSendMessage = (message) => {
+    if (socket && selectedChat && message) {
+      const senderId = sendermsgId; // Replace with the actual sender ID
+      const updatedChats = chats.map((chat) => {
+        if (chat.id === selectedChat) {
+          const conversationId = chat.id;
+          console.log(chat.id);
+          console.log(senderId);
+          console.log(message);
+          const updatedMessages = Array.isArray(chat.messages) ? [...chat.messages] : []; // Check if messages is an array
+          updatedMessages.push({ text: message, sent: true });
+          
+          socket.emit('newMessage', {
+            conversationId: conversationId,
+            senderId: senderId,
+            text: message,
+          });
+          
+          return {
+            ...chat,
+            messages: updatedMessages,
+          };
+        }
+        return chat;
+      });
+  
+      setChats(updatedChats);
+      setMessage('');
+    } else {
+      console.error('Socket is not initialized or selectedChat is null or message is empty');
+    }
+  };
+  
 
   const renderChatMessages = () => {
     const selectedChatObject = chats.find(chat => chat.id === selectedChat);
+  
+    if (!selectedChatObject || !selectedChatObject.messages) {
+      return <div className="default-message">No messages yet. Start the conversation!</div>;
+    }
+  
     const messages = selectedChatObject.messages;
+  
+    const messageComponents = messages.map((message, index) => {
+      const isSender = message && message.sender && message.sender._id === sendermsgId; // Replace with your user ID
+  
+      return (
+        <div key={index} className={isSender ? 'sent-message' : 'received-message'}>
+          {isSender ? (
+            <>
+            <div className='w-50 ms-auto'>
+<div className='sent-message p-2 rounded-3 mt-4 ' style={{ background: '#FEF3D5', alignSelf: 'flex-start' }}>
+                {message.messageText}
+              </div>
+              <div className='message-details text-end'>
+                <span className='timestamp'>12:40 PM</span>
+                <img src='./double tick.svg' className='tick-icon' alt='tick' />
+              </div>
+            </div>
+              
+            </>
+          ) : (
+            <>         
+            <div className=' w-50 me-auto'>
+            <div
+              className='received-message p-2 rounded-3 mt-4'
+              style={{ background: '#FFFFFF', alignSelf: 'flex-start' }}
+            >
+              {message.messageText}
+            </div>
+            <div className='message-details text-end'>
+                <span className='timestamp'>12:40 PM</span>
+                <img src='./double tick.svg' className='tick-icon' alt='tick' />
+              </div>
+            </div>
+              
+              
+            </>
 
-    // Reverse the messages array to show the latest message at the bottom
-    return messages
-      .slice()
-      .reverse()
-      .map((message, index) => (
-        <div
-          key={index}
-          className={`message ${message.sent ? 'sent' : 'received'}`}
-        >
-          {message.text}
+          )}
         </div>
-      ));
+      );
+    });
+  
+    return (
+      <div style={{ height: '50vh', overflowX: 'auto' }}>
+        {messageComponents.reverse()} {/* Reverse to show the latest messages at the bottom */}
+      </div>
+    );
   };
+  
 
-  const renderSentMessages = () => {
-    const selectedChatObject = chats.find(chat => chat.id === selectedChat);
-    const messages = selectedChatObject.messages;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`https://hkhealth.azurewebsites.net/api/messenges/${selectedChat}?page=1`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+  
+        console.log('Message API Response:', response.data); // Add this line to log the response
+  
+        const updatedChats = chats.map((chat) => {
+          if (chat.id === selectedChat) {
+            return {
+              ...chat,
+              messages: response.data,
+            };
+          }
+          return chat;
+        });
+        setChats(updatedChats);
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
+    };
+  
+    if (selectedChat) {
+      fetchData();
+    }
+  }, [selectedChat, token, chats]);
 
-    // Reverse the messages array to show the latest message at the bottom
-    const sentMessages = messages
-      .filter(message => message.sent)
-      .slice()
-      .reverse()
-      .map((message, index) => (
-        <div key={index}>
-          <div className='sent-message p-2 rounded-3 mt-4'>{message.text}</div>
-          <div className='message-details text-end'>
-            <span className='timestamp'>12:40 PM</span>
-            <img src='./double tick.svg' className='tick-icon' alt='tick' />
-          </div>
-        </div>
-      ));
 
-    return sentMessages;
-  };
+
   return (
     <>
       <div className='bg-formm chatnone' style={{}}>
-        <Container className='pt-5'>
-          <Row className='mt-5 bg-white shadow'>
-            <Col xl={3} className='bg-white  '>
+        <Container className='' >
+          <Row className=' bg-white shadow mt-5' >
+            <Col md={3} className='bg-white  '>
               <Row>
                 <div className='d-flex justify-content-between align-items-center '>
                   <div className='d-flex'>
@@ -115,32 +271,35 @@ const Chat = () => {
                 </div>
               </Row>
             </Col>
-            <Col xl={9} className=' '>
-              <Row>
-                <div className='d-flex p-2'>
-                  <Link to='/profile'>
-                    <div
-                      className='d-flex justify-content-center'
-                      style={{
-                        backgroundColor: '#FBCACA',
-                        borderRadius: '50%',
-                        width: '30px',
-                        height: '30px',
-                      }}
-                    >
-                      <p>G</p>
-                    </div>
-                  </Link>{' '}
-                  <div className='ms-3'>
-                    <p className='my-0'>Gus M.</p>
-                    <small>Last seen 1 hour ago</small>
-                  </div>
-                </div>
+            <Col md={9} className={!chatSelected ? 'd-none' : ''}>
+              <Row >
+              <div className='d-flex p-2'>
+        {/* Displaying selected user information */}
+        {selectedUser && (
+          <>
+            <div
+              className='d-flex justify-content-center'
+              style={{
+                backgroundColor: '#FBCACA',
+                borderRadius: '50%',
+                width: '30px',
+                height: '30px',
+              }}
+            >
+              <p>{selectedUser[0]}</p>
+            </div>
+            <div className='ms-3'>
+              <p className='my-0'>{selectedUser}</p>
+              <small>Last seen 1 hour ago</small>
+            </div>
+          </>
+        )}
+      </div>
               </Row>
             </Col>
           </Row>
-          <Row className='bg-white shadow mb-5'>
-            <Col lg={3} xl={3} md={3} xs={4} className='shadow'>
+          <Row className='bg-white shadow mb-5 height' >
+            <Col lg={3}  md={3} xs={4} className='shadow'>
               <div
                 className=''
                 style={{
@@ -149,373 +308,70 @@ const Chat = () => {
                   // padding: '15px',
                 }}
               >
-                {chats.map(chat => (
-                  <div
-                    key={chat.id}
-                    className='chat-list'
-                    style={{
-                      backgroundColor:
-                        selectedChat === chat.id ? '#ECECEC' : '#fff',
-                    }}
-                    onClick={() => setSelectedChat(chat.id)}
-                  >
-                    <div className='d-flex justify-content-center'>
-                      <div
-                        className='d-flex justify-content-center align-items-center mt-2'
-                        style={{
-                          backgroundColor: '#FBCACA',
-                          borderRadius: '50%',
-                          width: '50px',
-                          height: '20px',
-                        }}
-                      >
-                        <p className='my-0' style={{ fontSize: '13px' }}>
-                          {chat.user[0]}
-                        </p>
-                      </div>
-                      <div className='ms-3'>
-                        <h5>{chat.user}</h5>
-                        <p style={{ fontSize: '12px' }}>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor
-                        </p>
-                      </div>
-                      <div className='ms-0 text-nowrap '>
-                        <p style={{ fontSize: '11px' }} className='my-0'>
-                          1.23 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+      {chats.map(chat => (
+  <div
+    key={chat.id}
+    className='chat-list'
+    style={{
+      backgroundColor: selectedChat === chat.id ? '#ECECEC' : '#fff',
+    }}
+    
+    onClick={() => {
+      handleJoinConversation(chat.id)
+      setChatSelected(true);
+      setSelectedUser(chat.user);
+    }}
+  >
+    <div className='d-flex justify-content-center'>
+      <div
+        className='d-flex justify-content-center align-items-center mt-2'
+        style={{
+          backgroundColor: '#FBCACA',
+          borderRadius: '50%',
+          width: '50px',
+          height: '20px',
+        }}
+      >
+        <p className='my-0' style={{ fontSize: '13px' }}>
+          {chat.user[0]}
+        </p>
+      </div>
+      <div className='ms-3'>
+        <p>{chat.user}</p>
+        <p style={{ fontSize: '12px' }} className='d-none d-md-block'>
+          {chat.messages.length > 0 ? chat.messages[chat.messages.length - 1].messageText : ''}
+        </p>
+      </div>
+      <div className='ms-0 text-nowrap '>
+        <p style={{ fontSize: '11px' }} className='my-0'>
+          1.23 PM
+        </p>
+      </div>
+    </div>
+  </div>
+))}
+
               </div>
             </Col>
 
             <Col
               lg={9}
-              xl={9}
+             
               md={9}
               xs={8}
               className='pt-4'
               style={{ backgroundColor: '#F8F8F8' }}
             >
-              {selectedChat === 'chat1' && (
-                <div
-                  style={{ width: '100%', height: '60vh', overflowY: 'auto' }}
-                >
-                  <div>
-                    <div style={{ width: '40%' }}>
-                      <p className='p-3 bg-white rounded-3'>
-                        Lorem ipsum dolor sit amet,
-                      </p>
-                      <div
-                        className='my-0'
-                        style={{ transform: 'translateY(-10px)' }}
-                      >
-                        <p className='my-0' style={{ fontSize: '10px' }}>
-                          12:40 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className='text-center p-2 text-muted m-auto rounded-3 '
-                    style={{
-                      backgroundColor: '#F3F3F3',
-                      width: '100px',
-                    }}
-                  >
-                    <p className='my-0 text-center'>Yesterday</p>
-                  </div>
+           {renderChatMessages()}
 
-                  <div>
-                    <div style={{ width: '40%' }}>
-                      <p className='p-3 bg-white rounded-3'>
-                        Lorem ipsum dolor sit amet,
-                      </p>
-                      <div
-                        className='my-0'
-                        style={{ transform: 'translateY(-10px)' }}
-                      >
-                        <p className='my-0' style={{ fontSize: '10px' }}>
-                          12:40 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='chat-window w-50 d-block ms-auto text-wrap'>
-                    {selectedChat === 'chat1'
-                      ? renderSentMessages()
-                      : renderChatMessages()}
-                  </div>
-                </div>
-              )}
-              {selectedChat === 'chat2' && (
-                <div
-                  style={{ width: '100%', height: '60vh', overflowY: 'auto' }}
-                >
-                  <div>
-                    <div style={{ width: '40%' }}>
-                      <p className='p-3 bg-white rounded-3'>
-                        Lorem ipsum dolor sit amet,
-                      </p>
-                      <div
-                        className='my-0'
-                        style={{ transform: 'translateY(-10px)' }}
-                      >
-                        <p className='my-0' style={{ fontSize: '10px' }}>
-                          12:40 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='text-center'>
-                    <p>Yesterday</p>
-                  </div>
-                  <div className='chat-window w-50 d-block ms-auto text-wrap'>
-                    {selectedChat === 'chat2'
-                      ? renderSentMessages()
-                      : renderChatMessages()}
-                  </div>
-                </div>
-              )}
-              {selectedChat === 'chat3' && (
-                <div
-                  style={{ width: '100%', height: '60vh', overflowY: 'auto' }}
-                >
-                  <div>
-                    <div style={{ width: '40%' }}>
-                      <p className='p-3 bg-white rounded-3'>
-                        Lorem ipsum dolor sit amet,
-                      </p>
-                      <div
-                        className='my-0'
-                        style={{ transform: 'translateY(-10px)' }}
-                      >
-                        <p className='my-0' style={{ fontSize: '10px' }}>
-                          12:40 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='text-center'>
-                    <p>Yesterday</p>
-                  </div>
-                  <div className='chat-window w-50 d-block ms-auto text-wrap'>
-                    {selectedChat === 'chat3'
-                      ? renderSentMessages()
-                      : renderChatMessages()}
-                  </div>
-                </div>
-              )}
-              {selectedChat === 'chat4' && (
-                <div
-                  style={{ width: '100%', height: '60vh', overflowY: 'auto' }}
-                >
-                  <div>
-                    <div style={{ width: '40%' }}>
-                      <p className='p-3 bg-white rounded-3'>
-                        Lorem ipsum dolor sit amet,
-                      </p>
-                      <div
-                        className='my-0'
-                        style={{ transform: 'translateY(-10px)' }}
-                      >
-                        <p className='my-0' style={{ fontSize: '10px' }}>
-                          12:40 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='text-center'>
-                    <p>Yesterday</p>
-                  </div>
-                  <div className='chat-window w-50 d-block ms-auto text-wrap'>
-                    {selectedChat === 'chat4'
-                      ? renderSentMessages()
-                      : renderChatMessages()}
-                  </div>
-                </div>
-              )}
-              {selectedChat === 'chat5' && (
-                <div
-                  style={{ width: '100%', height: '60vh', overflowY: 'auto' }}
-                >
-                  <div>
-                    <div style={{ width: '40%' }}>
-                      <p className='p-3 bg-white rounded-3'>
-                        Lorem ipsum dolor sit amet,
-                      </p>
-                      <div
-                        className='my-0'
-                        style={{ transform: 'translateY(-10px)' }}
-                      >
-                        <p className='my-0' style={{ fontSize: '10px' }}>
-                          12:40 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='text-center'>
-                    <p>Yesterday</p>
-                  </div>
-                  <div className='chat-window w-50 d-block ms-auto text-wrap'>
-                    {selectedChat === 'chat5'
-                      ? renderSentMessages()
-                      : renderChatMessages()}
-                  </div>
-                </div>
-              )}
-              {selectedChat === 'chat6' && (
-                <div
-                  style={{ width: '100%', height: '60vh', overflowY: 'auto' }}
-                >
-                  <div>
-                    <div style={{ width: '40%' }}>
-                      <p className='p-3 bg-white rounded-3'>
-                        Lorem ipsum dolor sit amet,
-                      </p>
-                      <div
-                        className='my-0'
-                        style={{ transform: 'translateY(-10px)' }}
-                      >
-                        <p className='my-0' style={{ fontSize: '10px' }}>
-                          12:40 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='text-center'>
-                    <p>Yesterday</p>
-                  </div>
-                  <div className='chat-window w-50 d-block ms-auto text-wrap'>
-                    {selectedChat === 'chat6'
-                      ? renderSentMessages()
-                      : renderChatMessages()}
-                  </div>
-                </div>
-              )}
-              {selectedChat === 'chat7' && (
-                <div
-                  style={{ width: '100%', height: '60vh', overflowY: 'auto' }}
-                >
-                  <div>
-                    <div style={{ width: '40%' }}>
-                      <p className='p-3 bg-white rounded-3'>
-                        Lorem ipsum dolor sit amet,
-                      </p>
-                      <div
-                        className='my-0'
-                        style={{ transform: 'translateY(-10px)' }}
-                      >
-                        <p className='my-0' style={{ fontSize: '10px' }}>
-                          12:40 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='text-center'>
-                    <p>Yesterday</p>
-                  </div>
-                  <div className='chat-window w-50 d-block ms-auto text-wrap'>
-                    {selectedChat === 'chat7'
-                      ? renderSentMessages()
-                      : renderChatMessages()}
-                  </div>
-                </div>
-              )}
-              {selectedChat === 'chat8' && (
-                <div
-                  style={{ width: '100%', height: '60vh', overflowY: 'auto' }}
-                >
-                  <div>
-                    <div style={{ width: '40%' }}>
-                      <p className='p-3 bg-white rounded-3'>
-                        Lorem ipsum dolor sit amet,
-                      </p>
-                      <div
-                        className='my-0'
-                        style={{ transform: 'translateY(-10px)' }}
-                      >
-                        <p className='my-0' style={{ fontSize: '10px' }}>
-                          12:40 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='text-center'>
-                    <p>Yesterday</p>
-                  </div>
-                  <div className='chat-window w-50 d-block ms-auto text-wrap'>
-                    {selectedChat === 'chat8'
-                      ? renderSentMessages()
-                      : renderChatMessages()}
-                  </div>
-                </div>
-              )}
-              {selectedChat === 'chat9' && (
-                <div
-                  style={{ width: '100%', height: '60vh', overflowY: 'auto' }}
-                >
-                  <div>
-                    <div style={{ width: '40%' }}>
-                      <p className='p-3 bg-white rounded-3'>
-                        Lorem ipsum dolor sit amet,
-                      </p>
-                      <div
-                        className='my-0'
-                        style={{ transform: 'translateY(-10px)' }}
-                      >
-                        <p className='my-0' style={{ fontSize: '10px' }}>
-                          12:40 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='text-center'>
-                    <p>Yesterday</p>
-                  </div>
-                  <div className='chat-window w-50 d-block ms-auto text-wrap'>
-                    {selectedChat === 'chat9'
-                      ? renderSentMessages()
-                      : renderChatMessages()}
-                  </div>
-                </div>
-              )}
-              {selectedChat === 'chat10' && (
-                <div
-                  style={{ width: '100%', height: '60vh', overflowY: 'auto' }}
-                >
-                  <div>
-                    <div style={{ width: '40%' }}>
-                      <p className='p-3 bg-white rounded-3'>
-                        Lorem ipsum dolor sit amet,
-                      </p>
-                      <div
-                        className='my-0'
-                        style={{ transform: 'translateY(-10px)' }}
-                      >
-                        <p className='my-0' style={{ fontSize: '10px' }}>
-                          12:40 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='text-center'>
-                    <p>Yesterday</p>
-                  </div>
-                  <div className='chat-window w-50 d-block ms-auto text-wrap'>
-                    {selectedChat === 'chat10'
-                      ? renderSentMessages()
-                      : renderChatMessages()}
-                  </div>
-                </div>
-              )}
+           {/* {Array.from({ length: 10 }, (_, index) => index + 1).map((chatNumber) => (
+  selectedChat === `${chatNumber}` && renderChatMessages(chatNumber)
+))} */}
               <Row
                 className='m-auto w-50 text-center'
-                style={{ position: 'absolute', top: '85%' }}
+                style={{ position: 'absolute', top: '78%' }}
               >
-                <Col xs={12}>
+                <Col xs={12} className={!chatSelected ? 'd-none' : ''}>
                   <div className='message-input d-flex align-items-center'>
                     <input
                       type='text'
@@ -547,6 +403,7 @@ const Chat = () => {
                       <img src='./send button.svg' alt='sent button' />
                     </div>
                   </div>
+                  
                 </Col>
               </Row>
             </Col>

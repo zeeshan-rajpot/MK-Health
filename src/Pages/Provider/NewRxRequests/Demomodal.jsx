@@ -1,11 +1,67 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { Col, Row ,Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import { baseurl } from '../../../const';
 
 const Demomodal = ({item}) => {
-    console.log(item)
+  const [userDetails, setUserDetails] = useState(null);
+  const [sendermsgId, setSendermsgId] = useState(null)
 
-    console.log(item.data)
+
+
+  const token =  localStorage.getItem('token');
+
+  const createConversation = async () => {
+    try {
+      const response = await axios.post(
+        `${baseurl}/api/messenges/createconversation`,
+        {
+          participants: [item.patientId, sendermsgId],
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Replace with your actual auth token
+          },
+        }
+      );
+
+      console.log('Conversation created successfully:', response.data);
+    } catch (error) {
+      console.error('Error creating conversation:', error);
+    }
+  };
+
+
+
+
+  useEffect(() => {
+    // Fetch user details when the component mounts
+    fetchUserDetails();
+  }, []);
+
+  // Function to fetch user details using the token
+  const fetchUserDetails = async () => {
+    try {
+      const response = await axios.get('https://hkhealth.azurewebsites.net/api/auth/getdetails', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      // Log the user ID to the console
+      console.log(response.data.data._id);
+
+      // Store user details in the state variable
+      setUserDetails(response.data);
+
+      // Store the user ID in the state variable
+      setSendermsgId(response.data.data._id);
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
+
   const fields = [
     { label: 'First Name:', type: 'text', placeholder: 'Shahid ',
     value: item.personalInformation.name
@@ -79,7 +135,7 @@ const Demomodal = ({item}) => {
     },
   ];
   const LabtestItems = ['Hemoglobin A1C (496)', 'item2', 'item3', 'item3'];
-
+console.log(item.patientId)
   return (
     <>
     
@@ -233,6 +289,17 @@ const Demomodal = ({item}) => {
           </button>
         </Link>
       </Col> */}
+
+
+<Col className='text-end pb-5 mt-4'>
+<Link to='/Chat'>
+<button className='btnn py-1 px-4 border-0 shadow rounded-5 mt-3' onClick={createConversation}>
+            <span className='me-4'>Message now </span>
+            <img src='/Component 638 – 1.svg' width='30' height='30' />
+          </button>
+          </Link>
+       
+      </Col>
     </Row>
     
     
