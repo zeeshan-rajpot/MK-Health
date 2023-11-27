@@ -10,7 +10,7 @@ export const Contactdetail = () => {
     {
       placeholder: '123 West Walnut Street #1234',
       label: 'Practice Address (line1)',
-      key:'Practice Address'
+      key:'PracticeAddress'
     },
     { placeholder: 'England, Dewsbury', label: 'Practice Address (line2)' , key:'Address'},
     { placeholder: 'Rogers', label: 'City' , key:'City'},

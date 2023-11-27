@@ -3,14 +3,15 @@ import { Row, Col } from 'react-bootstrap'; // Added Col
 import { Dropdown } from 'react-bootstrap';
 import axios from 'axios'; // Import axios
 import { baseurl } from '../../../const';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PersonalInfo = () => {
   const [userData, setUserData] = useState({});
   const [selectedGender, setSelectedGender] = useState(
     userData?.specific_Details?.gender || 'Male'
   );
-
+  const [inputDetails, setInputDetails] = useState([]);
   const [selectedOpt, setSelectedOpt] = useState('yes'); // Fixed variable name
   const [pSelectedOpt, setPSelectedOpt] = useState('yes'); // Fixed variable name
 
@@ -22,7 +23,7 @@ const PersonalInfo = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    // Axios GET request
+
     axios
       .get(`${baseurl}/api/auth/getdetails`, {
         headers: {
@@ -30,55 +31,35 @@ const PersonalInfo = () => {
         },
       })
       .then((response) => {
-        // Handle successful response
         console.log('API response:', response.data);
         setUserData(response.data);
-        // Set selected gender based on the API data
         setSelectedGender(response.data?.specific_Details?.gender || 'Male');
+
+        // Initialize inputDetails after fetching user details
+        setInputDetails([
+          { placeholder: 'John', label: 'First Name ', type: 'text', value: response.data?.specific_Details?.firstName || '' },
+          { placeholder: 'Wick', label: 'Last Name', value: response.data?.specific_Details?.lastName || '' },
+          { placeholder: 'email', label: 'Email', value: response.data?.data?.email || '' },
+          { placeholder: 'Address Line 1', label: 'Adress ', value: response.data?.specific_Details?.location?.address || '' },
+          { placeholder: 'Address Line 2', label: 'City', value: response.data?.specific_Details?.location?.city || '' },
+          { placeholder: 'Address Line 2', label: 'State', value: response.data?.specific_Details?.location?.state || '' },
+          { placeholder: 'Number', label: 'Phone', value: response.data?.specific_Details?.phone || '' },
+          { placeholder: 'Zip Code', label: 'Zip Code', value: response.data?.specific_Details?.location?.zipCode || '' },
+          { placeholder: 'Date of Birth', label: 'Date of Birth', value: response.data?.specific_Details?.dob || '' },
+        ]);
       })
       .catch((error) => {
-        // Handle error
         console.error('Error fetching data:', error);
       });
-  }, []);// Empty dependency array to run the effect once when the component mounts
+  }, []); // Empty dependency array to run the effect once when the component mounts
 
-console.log(userData)
+  console.log(userData);
 
-  const inputDetails = [
-    { placeholder: 'John', label: 'First Name ', type: 'text' , value: userData?.specific_Details?.firstName || ''  },
-    { placeholder: 'Wick', label: 'Last Name', value: userData?.specific_Details?.lastName || ''  },
-    { placeholder: 'email', label: 'Email' , value: userData?.data?.email || '' },
-    { placeholder: 'Address Line 1', label: 'Adress ' , value: userData?.specific_Details?.location?.address || '' },
-    { placeholder: 'Address Line 2', label: 'City'  ,value: userData?.specific_Details?.location?.city || ''},
-    { placeholder: 'Address Line 2', label: 'State'  ,value: userData?.specific_Details?.location?.state || ''},
-    { placeholder: 'Number', label: 'Phone' , value: userData?.specific_Details?.phone || ''},
-    { placeholder: '5800', label: 'Date of Birth' ,value: userData?.specific_Details?.dob || ''},
-   
-  ];
-
-  // const [values, setValues] = useState(Array(inputDetails.length).fill(''));
-  // const [values, setValues] = useState({
-  //   firstName: userData?.specific_Details?.firstName || '',
-  //   lastName: userData?.specific_Details?.lastName || '',
-  //   email: userData?.data?.email || '',
-  //   address: userData?.specific_Details?.location?.address || '',
-  //   city: userData?.specific_Details?.location?.city || '',
-  //   state: userData?.specific_Details?.location?.state || '',
-  //   phone: userData?.specific_Details?.phone || '',
-  //   dob: userData?.specific_Details?.dob || '',
-  // });
-
-  // const handleChange = (field, value) => {
-  //   setValues((prevValues) => ({
-  //     ...prevValues,
-  //     [field]: value,
-  //   }));
-  // };
 
   const handleInputChange = (index, newValue) => {
     const updatedInputDetails = [...inputDetails];
     updatedInputDetails[index].value = newValue;
-    setInputDetails(updatedInputDetails); // Assuming you have a state variable setInputDetails to update the inputDetails array
+    setInputDetails(updatedInputDetails);
   };
 
   const handleSubmit = e => {
@@ -89,19 +70,20 @@ console.log(userData)
     const token = localStorage.getItem('token');
     const updatedData = {
       phone: inputDetails[6].value,
-      firstName: "Updated John",
-      lastName: "Updated Doe",
+      firstName: inputDetails[0].value,
+      lastName: inputDetails[1].value,
       location: {
-        address: "123 Elm Street",
-        state: "CA",
-        city: "Los Angeles",
-        zipCode: "90001",
+        address: inputDetails[3].value,
+        state: inputDetails[5].value,
+        city: inputDetails[4].value,
+        zipCode: inputDetails[7].value,
       },
-      dob: "1990-05-05T00:00:00.000Z",
-      gender: "Female",
+      dob: inputDetails[8].value,
+      gender: selectedGender,
     };
   
-    // Axios PUT request
+    console.log('Updated Data:', updatedData);
+  
     axios
       .put(`${baseurl}/api/auth/updatedetails`, updatedData, {
         headers: {
@@ -109,17 +91,24 @@ console.log(userData)
         },
       })
       .then((response) => {
-        // Handle successful response
-      
+
+        toast.success(`${response.data.message}`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
         console.log('Details updated successfully:', response.data);
       })
       .catch((error) => {
-        // Handle error
         console.error('Error updating details:', error);
       });
   };
-
+  
   return (
+  <>
     <div className='m-auto' style={{ width: '90%' }}>
     
       <Row className='border-bottom border-1'>
@@ -192,6 +181,20 @@ console.log(userData)
       </Row>
 
   </div>
+
+<ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
+</>
   );
 };
 

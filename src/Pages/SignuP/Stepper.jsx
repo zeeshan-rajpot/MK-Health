@@ -29,6 +29,8 @@ function getSteps() {
   return ['', '', '', ''];
 }
 
+
+
 function getStepContent(step, showStep3, handleChoice, navigate) {
   switch (step) {
     case 0:
@@ -48,8 +50,7 @@ const SignupStepper = () => {
   const classes = useStyles();
   const methods = useForm({
     defaultValues: {
-      firstName: '',
-      lastName: '',
+   
       // Add default values for other form fields
     },
   });
