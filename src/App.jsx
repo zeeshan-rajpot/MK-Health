@@ -72,7 +72,7 @@ function App() {
           <Route path="/Payment" element={<Payment />} />
           <Route path="/RequestedPrescription" element={<RequestedPrescription />} />
           <Route path="/RxRequest" element={<RxRequest />} />
-          <Route path="/PaitentDetail" element={<PaitentDetail />} />
+          <Route path="/PaitentDetail/:id" element={<PaitentDetail />} />
           <Route path="/RequestedRxForm" element={<RequestedRxForm />} />
           <Route path="/ReviewPrescribePage" element={<ReviewPrescribePage />} />
           <Route path="/ProviderChart" element={<ProviderChart />} />

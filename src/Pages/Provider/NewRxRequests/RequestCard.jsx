@@ -43,12 +43,14 @@ const RequestCard = () => {
   return (
     <>
       {data.length > 0 && data.map((item) => (
-        <Col md={4} xs={12} key={item.id} onClick={() => openDetailsModal(item)}>
-          {/* <Link to='/PaitentDetail'> */}
+        <Col md={4} xs={12} key={item.id}
+        //  onClick={() => openDetailsModal(item)}
+         >
+          <Link to={`/PaitentDetail/${item._id}`}>
             <div className='shadow d-flex justify-content-center align-items-center my-4 rounded-4 hover-effect '>
               <div className='d-flex justify-content-center align-items-center flex-column '>
                 <img
-                  src='https://images.unsplash.com/photo-1566753323558-f4e0952af115?q=80&w=1921&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' // Use the image URL from the data
+                  src={item.profilePic} // Use the image URL from the data
                   className=' mt-4 providerimg  '
                   style={{
                     borderRadius: '100%',
@@ -66,7 +68,7 @@ const RequestCard = () => {
                 </p>
               </div>
             </div>
-          {/* </Link> */}
+          </Link>
         </Col>
 
 
@@ -76,13 +78,13 @@ const RequestCard = () => {
 
 
 
-<Modal size='lg' show={selectedItem !== null} onHide={closeModal}>
+{/* <Modal size='lg' show={selectedItem !== null} onHide={closeModal}>
 
 <Modal.Body>
-  {selectedItem && <Demomodal item={selectedItem} />} {/* Render ItemDetails component */}
+  {selectedItem && <Demomodal item={selectedItem} />} 
 </Modal.Body>
 
-</Modal>
+</Modal> */}
     </>
   );
 };
