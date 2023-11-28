@@ -12,8 +12,8 @@ const Changeemail = () => {
       label: 'Your Current Email',
       type: 'text',
     },
-    { placeholder: 'Davidwilliam@gmail.com', label: 'New Email' },
-    { placeholder: 'Davidwilliam@gmail.com', label: 'Confirm New Email' },
+    { placeholder: 'Davidwilliam@gmail.com', label: 'New Email' , type: 'text' },
+    { placeholder: 'Davidwilliam@gmail.com', label: 'Confirm New Email'  ,type: 'text' },
   ];
 
   const [values, setValues] = useState(Array(inputDetails.length).fill(''));
@@ -126,7 +126,7 @@ const Changeemail = () => {
         <Row className='mt-5 text-center'>
           <Col>
             <button
-              className='border-50 text-white w-25 border-0 rounded-5 p-2'
+              className='border-50 text-white  border-0 rounded-5 p-2'
               style={{ backgroundColor: '#FAB915' }}
               onClick={handleSaveChanges}
             >

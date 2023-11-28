@@ -118,7 +118,7 @@ export const ChangePass = () => {
         <Row className='mt-5 text-center'>
           <Col>
             <button
-              className='border-50 text-white w-25 border-0 rounded-5 p-2'
+              className='border-50 text-white  border-0 rounded-5 p-2'
               style={{ backgroundColor: '#FAB915' }}
               onClick={handleSaveChanges}
             >
