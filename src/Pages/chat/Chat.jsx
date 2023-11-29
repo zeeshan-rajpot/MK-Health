@@ -58,7 +58,7 @@ const Chat = () => {
 
 
 
-console.log(sendermsgId)
+// console.log(sendermsgId)
 
 
 
@@ -128,9 +128,9 @@ console.log(sendermsgId)
       const updatedChats = chats.map((chat) => {
         if (chat.id === selectedChat) {
           const conversationId = chat.id;
-          console.log(chat.id);
-          console.log(senderId);
-          console.log(message);
+          // console.log(chat.id);
+          // console.log(senderId);
+          // console.log(message);
           const updatedMessages = Array.isArray(chat.messages) ? [...chat.messages] : []; // Check if messages is an array
           updatedMessages.push({ text: message, sent: true });
           
