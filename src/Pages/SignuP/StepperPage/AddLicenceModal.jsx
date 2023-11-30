@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 
-export const AddLicenceModal = ({ onDataSubmit, onHide, hideRow }) => {
+export const AddLicenceModal = ({ onDataSubmit, onHide, hideRow, npiNumber, degree }) => {
   const [licenseType, setLicenseType] = useState('');
   const [licenseNumber, setLicenseNumber] = useState('');
   const [licenseExpiry, setLicenseExpiry] = useState('');
@@ -28,7 +28,8 @@ export const AddLicenceModal = ({ onDataSubmit, onHide, hideRow }) => {
 
   const handleNextClick = () => {
     let hasImage = selectedImage ? 'Yes' : 'No';
-
+  
+    // Assume npiNumber and degree are being passed as props to AddLicenceModal
     const data = {
       licenseType,
       licenseNumber,
@@ -36,12 +37,15 @@ export const AddLicenceModal = ({ onDataSubmit, onHide, hideRow }) => {
       licenseStatus,
       selectedImage,
       hasImage, // Add "hasImage" to data
+      npiNumber, // Include npiNumber
+      degree, // Include degree
     };
-
+  
     onDataSubmit(data); // Pass the data to the parent component
     onHide(); // Close the modal
     hideRow();
   };
+  
 
   return (
     <div className='w-100 d-flex flex-column justify-content-center align-items-center '>

@@ -5,50 +5,55 @@ import AddLicenceModal from './AddLicenceModal';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 
-export const Licenverification = () => {
+export const Licenverification = ({ updateData }) => {
   const [show, setShow] = useState(false);
   const [consoleData, setConsoleData] = useState({});
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
   const [isRowVisible, setRowVisibility] = useState(true);
   const [npiNumber, setNpiNumber] = useState('');
   const [degree, setDegree] = useState('');
-  const [formData, setFormData] = useState(new FormData());
+
 
   const handleNpiNumberChange = (e) => {
     const value = e.target.value;
     setNpiNumber(value);
-    formData.set('npiNumber', value);
-    console.log('NPI Number:', value);
- 
+    setConsoleData(prevData => ({ ...prevData, npiNumber: value }));
   };
-  
+
   const handleDegreeChange = (e) => {
     const value = e.target.value;
     setDegree(value);
-    formData.set('degree', value);
-    console.log('Degree:', value);
-  
+    setConsoleData(prevData => ({ ...prevData, degree: value }));
   };
 
 
-console.log(formData)
+
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
 
-  const onDataSubmit = data => {
-    setConsoleData(data);
+  const onDataSubmit = modaldata => {
+    setConsoleData(modaldata); // Update consoleData with all the data received from the modal
+
+    // Send the data to the parent component
+    updateData({
+      licenseDetails: { ...modaldata, npiNumber, degree }, // Include npiNumber and degree in the update
+    });
     setIsDataSubmitted(true);
   };
+
   const hideRow = () => {
     setRowVisibility(false);
   };
+
+
   return (
     <div>
       <Container className='shadow '>
         <Row>
-        <Col xs={12}>
+          <Col xs={12}>
             <label className='mb-1 ms-3 mt-3 text-muted'>NPI Number</label>
             <input
               className='shadow border-0 w-100 m-0 p-3 rounded-5 text-black'
@@ -174,9 +179,12 @@ console.log(formData)
               onDataSubmit={onDataSubmit}
               onHide={handleClose}
               hideRow={hideRow}
+              npiNumber={npiNumber} // Pass the npiNumber state as a prop
+              degree={degree} // Pass the degree state as a prop
             />
           </Modal.Body>
         </Modal>
+
       </div>
     </div>
   );

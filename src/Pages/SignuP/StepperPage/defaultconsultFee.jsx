@@ -1,15 +1,17 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-export const defaultconsultFee = () => {
+
+export const defaultconsultFee = ({ updateData }) => {
   const [value, setValue] = useState(25);
 
   const hChange = event => {
-    let newValue = parseInt(event.target.value);
+    let newValue = parseInt(event.target.value, 10);
     if (isNaN(newValue) || newValue < 0) {
       newValue = 0;
     }
     setValue(newValue);
+    // Update the centralized state in SignupStepper
+    updateData({ defaultFee: newValue });
   };
 
   return (

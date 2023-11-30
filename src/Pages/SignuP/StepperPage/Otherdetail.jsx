@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 
-export const Otherdetail = () => {
+export const Otherdetail = ({ updateData }) => {
   const OtherDetails = [
-    { placeholder: 'MD', label: 'Preferred Suffix', type: 'text', key: 'Preferred Suffix' },
+    { placeholder: 'MD', label: 'Preferred Suffix', type: 'text', key: 'PreferredSuffix' },
     { placeholder: 'MD', label: 'Degree', key: 'Degree' },
     { placeholder: 'UAMS', label: 'Residency', key: 'Residency' },
     { placeholder: 'FE/EM', label: 'Specialty', key: 'Specialty' },
@@ -14,21 +14,31 @@ export const Otherdetail = () => {
     return acc;
   }, {}));
 
+  const [otherInformation, setOtherInformation] = useState('');
+
   const handleChange = (key, value) => {
     setValues(prevValues => ({
       ...prevValues,
       [key]: value
     }));
+    // Update the centralized state in SignupStepper using the prop function
+    updateData({ ...values, [key]: value, otherInformation });
+  };
+
+  const handleOtherInformationChange = (e) => {
+    const value = e.target.value;
+    setOtherInformation(value);
+    // Update the centralized state in SignupStepper using the prop function
+    updateData({ ...values, otherInformation: value });
   };
 
   useEffect(() => {
-    const formDataKeyValue = Object.entries(values).reduce((acc, [key, value]) => {
+    const formDataKeyValue = Object.entries({ ...values, otherInformation }).reduce((acc, [key, value]) => {
       acc[key] = value;
       return acc;
     }, {});
     console.log(formDataKeyValue);
-  }, [values]);
-
+  }, [values, otherInformation]);
 
   return (
     <div>
@@ -60,6 +70,7 @@ export const Otherdetail = () => {
               className='shadow border-0 w-100 m-0 p-3 rounded-5 text-black'
               placeholder='E.g: Interests Services provided'
               style={{ height: '20vh' }}
+              onChange={handleOtherInformationChange}
             />
           </Col>
         </Col>
