@@ -29,7 +29,8 @@ const SelectOption = ({ formData }) => {
         draggable: true,
       });
       setTimeout(() => {
-        navigate('/Login');
+        localStorage.setItem('token', response.data.token); // Save the token to local storage
+        navigate(type === 'doctor' ? '/CreatemainAccount' : '/login'); // Navigate based on the account type
       }, 3000);
     } catch (error) {
       // console.error('Error:', error.response.data.message);

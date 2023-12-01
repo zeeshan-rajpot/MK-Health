@@ -21,7 +21,6 @@ import Other from './StepperPage/Otherdetail.jsx';
 import License from './StepperPage/Licenandverification.jsx';
 import Defaultfee from './StepperPage/defaultconsultFee.jsx';
 
-
 import axios from 'axios';
 
 
@@ -135,7 +134,7 @@ const signup ={
 
 
 }
-const token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NGNjNDhmZGI5NGE1MDA5OTA2YTI3MyIsImlhdCI6MTcwMTM2NjA3NX0.OKE2_VxdXKrFssv3QwlxL3ERMR1q6fPG4mUOVMjKq48'
+const token = localStorage.getItem('token');
     try {
       // Assuming signupData contains all the necessary details
       const response = await axios.post('https://hkhealth.azurewebsites.net/api/auth/adddetails', signup, {
@@ -155,7 +154,12 @@ const token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NGNjNDhmZGI5NGE1M
         }
       );
 
-      navigate('/');
+
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+
+
       console.log('Server response:', response.data);
 
       // Optionally, you can handle the response or navigate to another page
